@@ -1,0 +1,13 @@
+name: netblog
+version: 0.1.0
+
+authors:
+  - lebogan <lewis.bogan@comcast.net>
+
+targets:
+  netblog:
+    main: src/netblog.cr
+
+crystal: 0.24.2
+
+license: MIT
