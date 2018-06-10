@@ -11,3 +11,15 @@ targets:
 crystal: 0.24.2
 
 license: MIT
+
+dependencies:
+  ameba:
+    github: veelenga/ameba
+  micrate:
+    github: amberframework/micrate
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+  granite:
+    github: amberframework/granite
+  kemal:
+    github: kemalcr/kemal
