@@ -21,3 +21,22 @@
 #===============================================================================
 
 require "./netblog/*"
+require "kemal"
+require "kilt/slang"
+
+macro my_renderer(filename)
+  render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
+end
+
+public_folder "./src/public"
+
+get "/" do |env|
+  title = "NetLogger"
+  my_renderer "home"
+end
+
+error 404 do
+  title = "Oops!"
+  my_renderer "error404"
+end
+Kemal.run
