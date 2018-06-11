@@ -1,6 +1,6 @@
 # netblog
 
-TODO: Write a description here
+Netblog, or NetLog, is a web-based network maintenance log book.
 
 ## Installation
 
