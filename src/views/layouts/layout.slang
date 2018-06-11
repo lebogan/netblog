@@ -8,12 +8,12 @@ html lang="en-US"
     link rel="stylesheet" href="/css/styles.css"
     link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png"
   body
-    header.container-fluid style="height: 1000px"
+    header.container-fluid
       img src="images/netblog.png" alt="NetBLog"
       h4 Network Logging Utility
       == render "src/views/nav.slang"
 
-    section.container
+    section.container-fluid
       == content
 
     footer.navbar.navbar-fixed-bottom
