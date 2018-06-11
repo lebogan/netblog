@@ -29,10 +29,21 @@ macro my_renderer(filename)
 end
 
 public_folder "./src/public"
+title = "NetLogger"
 
 get "/" do |env|
   title = "NetLogger"
   my_renderer "home"
+end
+
+get "/search" do |env|
+  title = "Search"
+  my_renderer "search"
+end
+
+get "/about" do |env|
+  title = "About"
+  my_renderer "about"
 end
 
 error 404 do
