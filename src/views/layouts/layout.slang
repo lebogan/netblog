@@ -6,10 +6,10 @@ html lang="en-US"
     meta name="viewport" content="width=device-width, initial-scale=1"
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     link rel="stylesheet" href="/css/styles.css"
-    link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png"
+    link rel="icon" type="image/png" sizes="32x32" href="images/favicon-1.png"
   body
     header.container-fluid
-      img.img-rounded src="images/netblog.png" alt="NetBLog"
+      img.img-rounded src="images/netblog-1.png" alt="NetBLog"
       h4 Network Logging Utility
       == render "src/views/nav.slang"
 
@@ -27,5 +27,3 @@ html lang="en-US"
             a href="#" License
           li
             a href="/about" About
-
-
