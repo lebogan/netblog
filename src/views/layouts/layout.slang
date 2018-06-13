@@ -9,7 +9,7 @@ html lang="en-US"
     link rel="icon" type="image/png" sizes="32x32" href="images/favicon.png"
   body
     header.container-fluid
-      img src="images/netblog.png" alt="NetBLog"
+      img.img-rounded src="images/netblog.png" alt="NetBLog"
       h4 Network Logging Utility
       == render "src/views/nav.slang"
 
@@ -17,9 +17,15 @@ html lang="en-US"
       == content
 
     footer.navbar.navbar-fixed-bottom
-      div.container
-        p.navbar-text  Copyright ©
-          == Time.now.to_s("%Y")
-          | Lewis E. Bogan
+      div.container-fluid
+        ul.nav.navbar-nav
+          li
+            p.navbar-text  Copyright ©
+                  == Time.now.to_s("%Y")
+                  | Lewis E. Bogan
+          li
+            a href="#" License
+          li
+            a href="/about" About
 
 
