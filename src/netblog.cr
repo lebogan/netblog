@@ -46,6 +46,10 @@ get "/about" do |env|
   my_renderer "about"
 end
 
+get "/license" do |env|
+  my_renderer "license"
+end
+
 error 404 do
   title = "Oops!"
   my_renderer "error404"

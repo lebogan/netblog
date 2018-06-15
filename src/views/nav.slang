@@ -5,3 +5,5 @@ ul.nav.nav-tabs
     a href="/search" title="Search" Search
   li
     a href="/about" title="About" About
+  li
+    a href="/license" License

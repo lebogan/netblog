@@ -24,6 +24,6 @@ html lang="en-US"
                   == Time.now.to_s("%Y")
                   | Lewis E. Bogan
           li
-            a href="#" License
+            a href="/license" License
           li
             a href="/about" About
