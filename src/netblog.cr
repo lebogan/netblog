@@ -47,6 +47,7 @@ get "/about" do |env|
 end
 
 get "/license" do |env|
+  title = "License"
   my_renderer "license"
 end
 
