@@ -29,10 +29,9 @@ macro my_renderer(filename)
 end
 
 public_folder "./src/public"
-title = "NetLogger"
 
 get "/" do |env|
-  title = "NetLogger"
+  title = "NetBLog"
   my_renderer "home"
 end
 
