@@ -4,4 +4,4 @@ ul.nav.nav-tabs
   li
     a href="/search" title="Search" Search
   li
-    a href="/about" title="About" About
+    a href="/backup" title="Backup" Backup

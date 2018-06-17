@@ -50,6 +50,11 @@ get "/license" do |env|
   my_renderer "license"
 end
 
+get "/backup" do |env|
+  title = "Backup"
+  my_renderer "backup"
+end
+
 error 404 do
   title = "Oops!"
   my_renderer "error404"

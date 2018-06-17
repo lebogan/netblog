@@ -19,7 +19,7 @@ into the user's session. Either `source .bashrc` or log out and back in. This
 is how the application finds the database.
 
 To update, just run ***install.sh*** in the netblog directory. The script pulls a fresh
-copy from GitHub and since the app is symbolically linked, you're finished.
+copy from GitHub or BitBucket and since the app is symbolically linked, you're finished.
 
 For completeness, a backup script, backup_db.sh, is provided to both backup the
 entire database in a .bak file and dump the main table into a .sql file.
@@ -30,7 +30,25 @@ Additionally, since the backup files can grow over time, files older than 90 day
 are deleted after the current backup process runs. You are prompted for a decision
 whether to delete those files.
 
-
+> ### Installation on Debian and Ubuntu
+> The compiled binary will not run on Ubuntu as is. It complains about libpcre.so.1 
+> not being available. It will have to be compiled with Crystal which may or may not
+> be [installed](https://devdocs.io/crystal/docs/installation/on_debian_and_ubuntu).
+> 
+> The below instructions can be used in a shell script. Be sure that at least git
+> is installed. I have run into instances where it is not:
+> ```bash
+> $ sudo apt-get install git curl build-essential sqlite3 libsqlite3-dev
+> $ curl https://dist.crystal-lang.org/apt/setup.sh | sudo bash
+> $ sudo apt-get install crystal
+> $ git clone https://github.com/lebogan/netblog.git
+> $ cd netblog
+> $ shards install
+> $ crystal build --release src/netblog.cr
+> $ ./install.sh
+> $ source ~/.bashrc (one time only)
+> ```
+> Subsequent pulls for upgrading will require that the binary be recompiled.
 ## Usage
 
 TODO: Write usage instructions here
