@@ -16,7 +16,7 @@ html lang="en-US"
     section.container-fluid
       == content
 
-    footer.navbar.navbar-fixed-bottom
+    footer.navbar
       div.container-fluid
         ul.nav.navbar-nav
           li
