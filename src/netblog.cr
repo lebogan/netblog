@@ -30,7 +30,7 @@ end
 public_folder "./src/public"
 
 # General route handlers
-get "/" do |env|
+get "/logs" do |env|
   title = "NetBLog"
   memos = find_all_records
   my_renderer "home"
@@ -62,37 +62,56 @@ error 404 do
 end
 
 # Route handlers for database operations
-get "/new" do |env|
+get "/log/new" do |env|
   "Creates new memo"
   title = "New"
   entry = Memo.new
   my_renderer "new_memo"
 end
 
-get "/memo/:id" do |env|
+get "/log/:id" do |env|
   "Shows memo"
+  title = "Memo"
+  entry = find_record(env.params.url["id"])
+  my_renderer "show_memo" if entry
 end
 
-get "/memo/:id/edit" do |env|
-  "Edits memo"
+get "/log/:id/edit" do |env|
+  title = "Edit"
+  entry = find_record(env.params.url["id"])
+  entry = Memo.find env.params.url["id"]
+  my_renderer "edit_memo" if entry
 end
 
-post "/memo" do |env|
-  "Saves memo"
+post "/log" do |env|
   entry = Memo.new
   entry.entry_date = Time.now.to_s("%FT%T")
   entry.category = env.params.body["category"]
   entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
   save_record(entry)
-  env.redirect "/"
+  env.redirect "/logs"
 end
 
-put "/memo/:id" do |env|
-  "Updates memo"
+put "/log/:id" do |env|
+  entry = find_record(env.params.url["id"])
+  if entry
+    entry.category = env.params.body["category"]
+    entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
+    save_record(entry)
+    env.redirect "/logs"
+  end
 end
 
-delete "/memo/:id" do |env|
-  "Deletes memo"
+get "/log/:id/delete" do |env|
+  title = "Delete"
+  entry = find_record(env.params.url["id"])
+  my_renderer "delete_memo" if entry
+end
+
+delete "/log/:id/delete" do |env|
+  entry = find_record(env.params.url["id"])
+  delete_record(entry) if entry
+  env.redirect "/logs"
 end
 
 Kemal.run

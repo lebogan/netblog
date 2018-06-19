@@ -1,6 +1,6 @@
 ul.nav.nav-tabs
   li
-    a href="/" title="Home" Home
+    a href="/logs" title="Logs" Logs
   li
     a href="/search" title="Search" Search
   li
