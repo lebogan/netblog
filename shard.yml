@@ -25,3 +25,7 @@ dependencies:
     github: kemalcr/kemal
   slang:
     github: jeromegn/slang
+  kemal-flash:
+    github: neovintage/kemal-flash
+  kemal-session:
+    github: kemalcr/kemal-session

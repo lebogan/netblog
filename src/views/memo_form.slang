@@ -11,3 +11,4 @@ section.container-fluid style="height: 500px"
     label for="memo" Memo:
     input.form-control type="text" name="memo" value="#{entry.memo}"
   input type="submit" value="Save Entry"
+  a.btn.btn-default href="/logs" Return to Logs

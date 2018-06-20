@@ -35,7 +35,10 @@ def find_all_records
 end
 
 # Saves/updates the row to the database.
-def save_record(entry)
+def save_record(entry, env)
+  entry.entry_date = Time.now.to_s("%FT%T")
+  entry.category = env.params.body["category"]
+  entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
   entry.save
 end
 

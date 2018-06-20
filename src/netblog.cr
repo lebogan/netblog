@@ -20,6 +20,8 @@
 # Distributed under terms of the MIT license.
 # ===============================================================================
 require "kemal"
+require "kemal-session"
+require "kemal-flash"
 require "kilt/slang"
 require "./netblog/*"
 
@@ -29,10 +31,19 @@ end
 
 public_folder "./src/public"
 
+Kemal::Session.config.tap do |config|
+  config.secret = "my_really_super_secret"
+  config.engine = Kemal::Session::MemoryEngine.new
+end
+
+def show_env(data)
+  "#{data}"
+end
+
 # General route handlers
 get "/logs" do |env|
   title = "NetBLog"
-  memos = find_all_records
+  entries = find_all_records
   my_renderer "home"
 end
 
@@ -85,19 +96,17 @@ end
 
 post "/log" do |env|
   entry = Memo.new
-  entry.entry_date = Time.now.to_s("%FT%T")
-  entry.category = env.params.body["category"]
-  entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
-  save_record(entry)
-  env.redirect "/logs"
+  show_env(env.response)
+  #env.flash["success"] = "Entry successfully added" if save_record(entry, env)
+  #env.redirect "/logs"
 end
 
 put "/log/:id" do |env|
   entry = find_record(env.params.url["id"])
   if entry
-    entry.category = env.params.body["category"]
-    entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
-    save_record(entry)
+    #entry.category = env.params.body["category"]
+    #entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
+    save_record(entry, env)
     env.redirect "/logs"
   end
 end
@@ -108,7 +117,7 @@ get "/log/:id/delete" do |env|
   my_renderer "delete_memo" if entry
 end
 
-delete "/log/:id/delete" do |env|
+delete "/log/:id" do |env|
   entry = find_record(env.params.url["id"])
   delete_record(entry) if entry
   env.redirect "/logs"

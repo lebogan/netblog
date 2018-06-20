@@ -12,7 +12,8 @@ section.container-fluid style="height: 500px"
     div.form-group
       label for="memo" Memo:
       input.form-control type="text" name="memo" value="#{entry.memo}"
-  form action="/log/#{entry.id}/delete" method="POST"
+  form action="/log/#{entry.id}" method="POST"
     input type="hidden" name="_method" value="DELETE"
     input type="submit" value="delete this entry"
+    a.btn.btn-default href="/logs" Return to Logs
 
