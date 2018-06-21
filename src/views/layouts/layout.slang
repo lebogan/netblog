@@ -14,7 +14,7 @@ html lang="en-US"
       == render "src/views/nav.slang"
 
     section.container-fluid
-      == render "src/views/alerts.slang"
+      /== render "src/views/alerts.slang"
       == content
 
     footer.navbar

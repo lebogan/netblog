@@ -29,7 +29,11 @@ macro my_renderer(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
 end
 
-public_folder "./src/public"
+Kemal.config.tap do |config|
+  config.env = "development"
+  config.port = 4567
+  config.public_folder = "./src/public"
+end
 
 Kemal::Session.config.tap do |config|
   config.secret = "my_really_super_secret"
@@ -96,8 +100,8 @@ end
 
 post "/log" do |env|
   entry = Memo.new
-  show_env(env.response)
-  #env.flash["success"] = "Entry successfully added" if save_record(entry, env)
+  env.flash["success"] = "Entry successfully added" if save_record(entry, env)
+  show_env(env.flash)
   #env.redirect "/logs"
 end
 
