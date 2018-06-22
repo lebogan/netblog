@@ -1,21 +1,22 @@
 section.container-fluid.well style="height: 500px"
   h4 Searching
-  p Search page for simple or complex searches with
-    | hyperlinks to print to pdf or printer.
+  p Select search item and enter search criteria
+
   form.form method="POST" action="/search_by"
     div.checkbox
-      label
-        input type="checkbox" name="date" value="" Date
+      label for="search_by_date"
+        input type="checkbox" name="search_by_date" value="true" Date
     div.form-group
-      label for="memo" Date:
+      label.control-label for="date" Enter date:
       input.form-control type="date" name="date"
 
     div.checkbox
-      label
-        input type="checkbox" value="" Categoty
+      label for="search_by_category"
+        input type="checkbox" name="search_by_category" value="true" Category
     div.form-group
-      label for="category" Category:
+      label for="category" Choose category:
       select.form-control name="category" value=""
+        option 
         option INFO
         option INSTALL
         option KERNEL
@@ -24,9 +25,11 @@ section.container-fluid.well style="height: 500px"
 
     div.form-group
       div.checkbox
-        label
-          input type="checkbox" value="" Memo text
+        label for="search_by_memo"
+          input type="checkbox" name="search_by_memo" value="true" Memo text
       div.form-group
-        label for="memo" Memo text:
-        input.form-control type="text" name="memo"
-    input type="submit" value="Search"
+        label for="memo" Enter search text:
+        input.form-control type="text" name="memo" placeholder="some text to search for"
+
+    div.form-group
+      button.btn.btn-default type="submit" Search

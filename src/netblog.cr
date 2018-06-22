@@ -26,12 +26,14 @@ require "kilt/slang"
 require "./netblog/*"
 
 # Extras for help with troubleshooting
-macro my_renderer(filename)
-  render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
-end
-
 def show_env(data)
   "#{data}"
+end
+
+class Object
+  macro methods
+   {{ @type.methods.map &.name.stringify }}
+  end
 end
 
 # Configuration blocks for Kemal and Kemal::Session
@@ -45,6 +47,10 @@ end
 Kemal::Session.config.tap do |config|
   config.secret = "my_really_super_secret"
   config.engine = Kemal::Session::MemoryEngine.new
+end
+
+macro my_renderer(filename)
+  render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
 end
 
 # General site route handlers
@@ -109,6 +115,7 @@ end
 
 post "/search_by" do |env|
   "Searching"
+  show_env(env.params.body)
 end
 
 put "/log/:id" do |env|
