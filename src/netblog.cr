@@ -1,9 +1,9 @@
 # ===============================================================================
 #         FILE:  netblog.cr
-#        USAGE:  netblog [arguments...] [options...]
+#        USAGE:  netblog
 #  DEVELOPMENT:  crystal build|run src/netblog.cr
-#      RELEASE:  crystal build --release --no-debug src/netblog.cr
-#  DESCRIPTION:  Web-based network maintenance logger written in Crystal
+#      RELEASE:  crystal build --release src/netblog.cr
+#  DESCRIPTION:  Browser-enabled network maintenance logger written in Crystal
 # REQUIREMENTS:  shards: see shard.yml
 #         TODO:  ---
 #         NOTE:  ---
