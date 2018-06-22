@@ -1,4 +1,4 @@
 module Netblog
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
-  LICENSE = {{ `cat LICENSE`.stringify }}
+  LICENSE = {{ `cat LICENSE`.stringify.split("\n\n") }}
 end

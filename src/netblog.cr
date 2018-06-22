@@ -12,7 +12,7 @@
 #      CREATED:  2018-06-10 17:00
 #    COPYRIGHT:  (C) 2018 Lewis E. Bogan <lewis.bogan@comcast.net>
 #    GIT REPOS:  devforge, GitHub, BitBucket
-#             :  git remote add origin ssh://devforge/var/lib/git/repos/netblog.git
+#             :  git remote add origin ssh://lewisb@devforge/var/lib/git/repos/netblog.git
 #             :  git set-url --add --push origin ssh://devforge/var/lib/git/repos/netblog.git
 #             :  git set-url --add --push origin git@github.com:lebogan/netblog.git
 #             :  git set-url --add --push origin git@bitbucket.org:lebogan/netblog.git
@@ -25,12 +25,19 @@ require "kemal-flash"
 require "kilt/slang"
 require "./netblog/*"
 
+# Extras for help with troubleshooting
 macro my_renderer(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
 end
 
+def show_env(data)
+  "#{data}"
+end
+
+# Configuration blocks for Kemal and Kemal::Session
 Kemal.config.tap do |config|
   config.env = "development"
+  config.host_binding = "192.168.33.14"
   config.port = 4567
   config.public_folder = "./src/public"
 end
@@ -40,11 +47,7 @@ Kemal::Session.config.tap do |config|
   config.engine = Kemal::Session::MemoryEngine.new
 end
 
-def show_env(data)
-  "#{data}"
-end
-
-# General route handlers
+# General site route handlers
 get "/logs" do |env|
   title = "NetBLog"
   entries = find_all_records
@@ -101,15 +104,14 @@ end
 post "/log" do |env|
   entry = Memo.new
   env.flash["success"] = "Entry successfully added" if save_record(entry, env)
-  show_env(env.flash)
-  #env.redirect "/logs"
+  env.redirect "/logs"
 end
 
 put "/log/:id" do |env|
   entry = find_record(env.params.url["id"])
   if entry
-    #entry.category = env.params.body["category"]
-    #entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
+    entry.category = env.params.body["category"]
+    entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
     save_record(entry, env)
     env.redirect "/logs"
   end

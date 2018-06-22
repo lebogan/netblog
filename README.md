@@ -1,7 +1,9 @@
 # netblog
 
-Netblog, or NetLog, is a web-based network maintenance log book. It
-is actually a re-write of my command-line utility, netblog.
+Netblog is a browser-enabled network maintenance log book. It
+is actually a re-write of my command-line utility, netlog.
+
+**This app is currently in development, not ready for use yet!**
 
 ## Installation
 ```bash
@@ -76,7 +78,7 @@ This utility is available as open source under the terms of the
 
 ## Disclaimer
 This utility was originally created for personal use in my work as a network
-specialist. It was developed on a virtual Fedora Workstation using Crystal 0.24.2.
+specialist. It was developed on a virtual Fedora Workstation using Crystal 0.25.0.
 This has been tested on Fedora 26/27 Workstation.
 
 I am not a professional software developer nor do I pretend to be. I am a **retired** IT 
