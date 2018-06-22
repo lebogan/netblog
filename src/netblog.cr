@@ -54,11 +54,6 @@ get "/logs" do |env|
   my_renderer "home"
 end
 
-get "/search" do |env|
-  title = "Search"
-  my_renderer "search"
-end
-
 get "/backup" do |env|
   title = "Backup"
   my_renderer "backup"
@@ -105,6 +100,15 @@ post "/log" do |env|
   entry = Memo.new
   env.flash["success"] = "Entry successfully added" if save_record(entry, env)
   env.redirect "/logs"
+end
+
+get "/search" do |env|
+  title = "Search"
+  my_renderer "search"
+end
+
+post "/search_by" do |env|
+  "Searching"
 end
 
 put "/log/:id" do |env|
