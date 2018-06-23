@@ -26,7 +26,7 @@ require "kilt/slang"
 require "./netblog/*"
 
 # Extras for help with troubleshooting
-def show_env(data)
+def show_env(*data)
   "#{data}"
 end
 
@@ -114,14 +114,23 @@ get "/search" do |env|
 end
 
 post "/search_by" do |env|
-  "Searching"
-  case 
+  case
+  # select only one item
   when env.params.body["search_by_date"] == "true"
-    show_env(env.params.body["date"])
+    #show_env(env.params.body["date"])
+    title = "entry_date"
+    queries = query_records("entry_date", env.params.body["entry_date"])
+    my_renderer "query"
   when env.params.body["search_by_category"] == "true"
-    show_env(env.params.body["category"])
+    #show_env(env.params.body["category"])
+    title = "category"
+    queries = query_records("category", env.params.body["category"])
+    my_renderer "query"
   when env.params.body["search_by_memo"] == "true"
-    show_env(env.params.body["memo"])
+    #show_env(env.params.body["memo"])
+    title = "memo"
+    queries = query_records("memo", env.params.body["memo"])
+    my_renderer "query"
   else
     env.redirect "/search"
   end

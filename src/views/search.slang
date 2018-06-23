@@ -1,5 +1,5 @@
 section.container-fluid.well style="height: 500px"
-  h4 Searching
+  h4 Simple search
   p Select search item and enter search criteria
 
   form.form method="POST" action="/search_by"
@@ -8,9 +8,9 @@ section.container-fluid.well style="height: 500px"
         input type="checkbox" name="search_by_date" value="true" Date
         input type="hidden" name="search_by_date" value="false"
     div.form-group
-      label.control-label for="date" Enter date:
-      input.form-control type="date" name="date" value="#{Time.now.to_s("%F")}"
-        span.help-block This will default to today's date if left blank.
+      label.control-label for="entry_date" Enter date:
+      input.form-control type="text" name="entry_date" title="Date format: yyyy-mm-dd, yyyy-mm, yyyy" pattern="[0-9]{4}\-[0-9]{2}\-[0-9]{2}|[0-9]{4}\-[0-9]{2}|[0-9]{4}"
+        span.help-block Specify a year, month and year, or month and day of a certain year.
 
     div.checkbox
       label for="search_by_category"
@@ -19,7 +19,6 @@ section.container-fluid.well style="height: 500px"
     div.form-group
       label for="category" Choose category:
       select.form-control name="category" value=""
-        option ALL
         option INFO
         option INSTALL
         option KERNEL
