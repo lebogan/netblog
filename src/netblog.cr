@@ -115,7 +115,16 @@ end
 
 post "/search_by" do |env|
   "Searching"
-  show_env(env.params.body)
+  case 
+  when env.params.body["search_by_date"] == "true"
+    show_env(env.params.body["date"])
+  when env.params.body["search_by_category"] == "true"
+    show_env(env.params.body["category"])
+  when env.params.body["search_by_memo"] == "true"
+    show_env(env.params.body["memo"])
+  else
+    env.redirect "/search"
+  end
 end
 
 put "/log/:id" do |env|
