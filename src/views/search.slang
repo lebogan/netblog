@@ -1,6 +1,6 @@
 section.container-fluid.well style="height: 500px"
   h4 Simple search
-  p Select search item and enter search criteria
+  p Select one search item and enter search criteria
 
   form.form method="POST" action="/search_by"
     div.checkbox
