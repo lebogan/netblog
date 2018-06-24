@@ -1,5 +1,5 @@
 - case
-- when "#{env.flash["success"]?}"
+- when env.flash["success"]?
     div.alert.alert-success
       == env.flash["success"]?
 - when env.flash["info"]?
