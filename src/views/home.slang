@@ -1,5 +1,5 @@
 section.container-fluid
-  h4 10 Most recent entries
+  h4 10 Most recent of #{number_of_records} entries
   div.panel.panel-default
     div.panel-heading
       div

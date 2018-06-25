@@ -1,3 +1,16 @@
+# ===============================================================================
+#         FILE:  netblog_helpers.cr
+#        USAGE:  Internal
+#  DESCRIPTION:  Helpers
+#       AUTHOR:  Lewis E. Bogan
+#      COMPANY:  Earthsea@Home
+#      CREATED:  2018-06-25 10:53
+#    COPYRIGHT:  (C) 2018 Lewis E. Bogan <lewis.bogan@comcast.net>
+# Distributed under terms of the MIT license.
+# ===============================================================================
+
+DB_DIR = File.expand_path("~/netlog_db")
+
 # Capitalizes only the first word in a string, leaving the rest untouched. This
 # preserves the words I want capitalized intentionally.
 #
@@ -63,6 +76,32 @@ def find_old_files(path : String, filetypes : Array(String), age : Int32) : Arra
     end
   end
   old_files
+end
+
+# Deletes backup files older than 3 months from DB_DIR. Uses Utils.find_old_files method
+# to retrieve a list of those files.
+#
+def prune_files
+  filetypes = ["bak", "sql"]
+  age = 3
+  old_files = find_old_files(DB_DIR, filetypes, age)
+  if !old_files.empty?
+    old_files.each { |file| puts "#{File.expand_path(file)}" }
+    old_files.each { |file| File.delete(file) }
+    puts "Deleted #{old_files.size} backup files!"
+  end
+end
+
+# Dumps the database in .sql format and does a binary backup. Uses the SQLite3
+# binary.
+def run_backup
+  db = "#{DB_DIR}/netlog.db"
+  #db = File.expand_path("~/netlog_db/netlog.db")
+  # db_dir = File.expand_path("~/netlog_db")
+  dump_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.sql")[0]}"
+  bak_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.bak")[0]}"
+  run_cmd("sqlite3", {"#{db}", ".output #{dump_filename}", ".dump entries"})
+  run_cmd("sqlite3", {"#{db}", ".timeout 20000", ".backup #{bak_filename}"})
 end
 
 # Runs a system-level command and returns a Tuple(Int32, String) containing

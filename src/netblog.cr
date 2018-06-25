@@ -57,6 +57,7 @@ end
 get "/logs" do |env|
   title = "NetBLog"
   entries = find_all_records
+  number_of_records = Memo.all.size
   my_renderer "home"
 end
 
@@ -102,6 +103,16 @@ get "/backup" do |env|
   my_renderer "backup"
 end
 
+post "/backup" do |env|
+  if env.params.body["prune"] == "true"
+    prune_files
+    env.flash["success"] = "Backup success" if run_backup
+  else
+    env.flash["success"] = "Backup success" if run_backup
+  end
+  env.redirect "/logs"
+end
+
 post "/log" do |env|
   entry = Memo.new
   env.flash["success"] = "Entry successfully added" if save_record(entry, env)
@@ -114,7 +125,7 @@ get "/search" do |env|
 end
 
 post "/search_by" do |env|
-    title = "Search"
+  title = "Search"
   case
   when env.params.body["search_by_date"] == "true"
     caption = "entry_date"
