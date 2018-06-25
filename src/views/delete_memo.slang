@@ -1,4 +1,5 @@
 section.container-fluid style="height: 500px"
+  == render "src/views/alerts.slang"
   h4 Edit Log Entry
   form.form
     div.form-group

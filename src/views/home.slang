@@ -1,4 +1,5 @@
 section.container-fluid
+  == render "src/views/alerts.slang"
   h4 10 Most recent of #{number_of_records} entries
   div.panel.panel-default
     div.panel-heading

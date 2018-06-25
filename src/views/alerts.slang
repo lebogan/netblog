@@ -8,4 +8,7 @@
 - when env.flash["warning"]?
     div.alert.alert-warning
       == env.flash["warning"]?
+- when env.flash["danger"]?
+    div.alert.alert-danger
+      == env.flash["danger"]?
 - end

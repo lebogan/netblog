@@ -106,16 +106,16 @@ end
 post "/backup" do |env|
   if env.params.body["prune"] == "true"
     prune_files
-    env.flash["success"] = "Backup success" if run_backup
+    env.flash["success"] = "Backups successful!" if run_backup
   else
-    env.flash["success"] = "Backup success" if run_backup
+    env.flash["success"] = "Backups successful!" if run_backup
   end
   env.redirect "/logs"
 end
 
 post "/log" do |env|
   entry = Memo.new
-  env.flash["success"] = "Entry successfully added" if save_record(entry, env)
+  env.flash["success"] = "Log entry successfully added!" if save_record(entry, env)
   env.redirect "/logs"
 end
 
@@ -149,13 +149,14 @@ put "/log/:id" do |env|
   if entry
     entry.category = env.params.body["category"]
     entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
-    save_record(entry, env)
+    env.flash["success"] = "Log entry successfully updated!" if save_record(entry, env)
     env.redirect "/logs"
   end
 end
 
 get "/log/:id/delete" do |env|
   title = "Delete"
+  env.flash["danger"] = "Log entry is about to be deleted!!!"
   entry = find_record(env.params.url["id"])
   my_renderer "delete_memo" if entry
 end
