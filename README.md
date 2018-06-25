@@ -1,7 +1,8 @@
 # netblog
 
 Netblog is a browser-enabled network maintenance log book. It
-is actually a re-write of my command-line utility, netlog.
+is actually a re-write of my command-line utility, netlog. As such, 
+it can be used as a front-end for an existing netlog database.
 
 **This app is currently in development, not ready for use yet!**
 
@@ -29,8 +30,8 @@ These files are timestamped and maybe should be committed to a
 source repository like git. Add this script to cron for automation.
 
 Additionally, since the backup files can grow over time, files older than 90 days
-are deleted after the current backup process runs. You are prompted for a decision
-whether to delete those files.
+can be deleted after the current backup process runs. Just check the prune box
+under the `Backup` tab.
 
 > ### Installation on Debian and Ubuntu
 > The compiled binary will not run on Ubuntu as is. It complains about libpcre.so.1 
@@ -51,11 +52,18 @@ whether to delete those files.
 > $ source ~/.bashrc (one time only)
 > ```
 > Subsequent pulls for upgrading will require that the binary be recompiled.
+
 ## Usage
 
-TODO: Write usage instructions here
+![figure 1](./src/public/images/screenshot.png)
 
 ## TODO
+
+[ ] - Incorporate an installation script  
+[ ] - Make this a standalone app by including micrate and a migration file.
+[ ] - Add database restore function
+[ ] - Daemonize the app  
+[ ] - Redo the logo and favicon  
 
 ## Development
 
@@ -79,7 +87,7 @@ This utility is available as open source under the terms of the
 ## Disclaimer
 This utility was originally created for personal use in my work as a network
 specialist. It was developed on a virtual Fedora Workstation using Crystal 0.25.0.
-This has been tested on Fedora 26/27 Workstation.
+This has been tested on Fedora 26/27/28 Workstation.
 
 I am not a professional software developer nor do I pretend to be. I am a **retired** IT 
 network specialist and this is a hobby to keep me out of trouble. If you 
