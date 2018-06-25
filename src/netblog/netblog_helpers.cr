@@ -94,10 +94,9 @@ end
 
 # Dumps the database in .sql format and does a binary backup. Uses the SQLite3
 # binary.
+#
 def run_backup
   db = "#{DB_DIR}/netlog.db"
-  #db = File.expand_path("~/netlog_db/netlog.db")
-  # db_dir = File.expand_path("~/netlog_db")
   dump_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.sql")[0]}"
   bak_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.bak")[0]}"
   run_cmd("sqlite3", {"#{db}", ".output #{dump_filename}", ".dump entries"})

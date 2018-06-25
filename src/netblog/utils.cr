@@ -1,3 +1,14 @@
+#===============================================================================
+#         FILE:  utils.cr
+#        USAGE:  Internal
+#  DESCRIPTION:  A collection of general system utilities.
+#       AUTHOR:  Lewis E. Bogan
+#      COMPANY:  Earthsea@Home
+#      CREATED:  2018-06-25 11:22
+#    COPYRIGHT:  (C) 2018 Lewis E. Bogan <lewis.bogan@comcast.net>
+# Distributed under terms of the MIT license.
+#===============================================================================
+
 # ---------------------------------------------------------------------------------
 # A collection of general system utilities.
 # ---------------------------------------------------------------------------------
