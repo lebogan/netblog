@@ -5,3 +5,5 @@ ul.nav.nav-tabs
     a href="/search" title="Search" Search
   li
     a href="/backup" title="Backup" Backup
+  li
+    a href="/restore" title="Restore" Restore

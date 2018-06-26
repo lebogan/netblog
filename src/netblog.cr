@@ -113,6 +113,16 @@ post "/backup" do |env|
   env.redirect "/logs"
 end
 
+get "/restore" do |env|
+  title = "Restore"
+  my_renderer "restore"
+end
+
+post "/restore" do |env|
+  env.flash["success"] = "Restore successful!" if run_restore(env)
+  env.redirect "/logs"
+end
+
 post "/log" do |env|
   entry = Memo.new
   env.flash["success"] = "Log entry successfully added!" if save_record(entry, env)

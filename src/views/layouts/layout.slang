@@ -22,8 +22,8 @@ html lang="en-US"
         ul.nav.navbar-nav
           li
             p.navbar-text  Copyright ©
-                  == Time.now.to_s("%Y")
-                  | Lewis E. Bogan
+              == Time.now.to_s("%Y")
+              | Lewis E. Bogan
           li
             a href="/license" License
           li

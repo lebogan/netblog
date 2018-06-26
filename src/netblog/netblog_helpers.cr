@@ -103,6 +103,12 @@ def run_backup
   run_cmd("sqlite3", {"#{db}", ".timeout 20000", ".backup #{bak_filename}"})
 end
 
+def run_restore(env)
+  db = "#{DB_DIR}/netlog.db"
+  restore_file = "#{DB_DIR}/#{env.params.body["restore_file"]}"
+  run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})
+end
+
 # Runs a system-level command and returns a Tuple(Int32, String) containing
 # status, and command output or error. Args default to "".
 #
