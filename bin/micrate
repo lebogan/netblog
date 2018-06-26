@@ -1,0 +1,8 @@
+#!/usr/bin/env crystal
+require "micrate"
+require "sqlite3"
+
+Micrate::DB.connection_url = ENV["DATABASE_URL"]
+#Micrate::DB.connection_url = "sqlite3://config/development.db"
+Micrate::Cli.run
+
