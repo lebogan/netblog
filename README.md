@@ -60,8 +60,10 @@ under the `Backup` tab.
 ## TODO
 
 [ ] - Incorporate an installation script  
-[ ] - Make this a standalone app by including micrate and a migration file.
-[ ] - Add database restore function
+[X] - Make this a standalone app by including micrate and a migration file.
+[X] - Add database restore function
+[ ] - Consolidate backup/restore on one page
+[ ] - Add pagination to all pages with 10+ listings
 [ ] - Daemonize the app  
 [ ] - Redo the logo and favicon  
 

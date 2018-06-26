@@ -58,7 +58,7 @@ get "/logs" do |env|
   title = "NetBLog"
   entries = find_all_records
   number_of_records = Memo.all.size
-  my_renderer "home"
+  my_renderer "logs"
 end
 
 get "/about" do |env|
@@ -74,6 +74,11 @@ end
 error 404 do
   title = "Oops!"
   my_renderer "error404"
+end
+
+error 500 do
+  title = "Seriously?"
+  my_renderer "error500"
 end
 
 # Route handlers for database operations
@@ -98,9 +103,9 @@ get "/log/:id/edit" do |env|
   my_renderer "edit_memo" if entry
 end
 
-get "/backup" do |env|
-  title = "Backup"
-  my_renderer "backup"
+get "/maintenance" do |env|
+  title = "Maintenance"
+  my_renderer "maintenance"
 end
 
 post "/backup" do |env|
@@ -113,13 +118,13 @@ post "/backup" do |env|
   env.redirect "/logs"
 end
 
-get "/restore" do |env|
-  title = "Restore"
-  my_renderer "restore"
-end
-
 post "/restore" do |env|
-  env.flash["success"] = "Restore successful!" if run_restore(env)
+  status, result = run_restore(env)
+  if status == 0
+    env.flash["success"] = "Restore successful!"
+  else
+    env.flash["warning"] = "Restore failed!"
+  end
   env.redirect "/logs"
 end
 

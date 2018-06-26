@@ -106,6 +106,9 @@ end
 def run_restore(env)
   db = "#{DB_DIR}/netlog.db"
   restore_file = "#{DB_DIR}/#{env.params.body["restore_file"]}"
+  unless File.file?(File.expand_path(restore_file))
+    return {1, ""}
+  end
   run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})
 end
 
