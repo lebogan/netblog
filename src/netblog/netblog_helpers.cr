@@ -78,17 +78,19 @@ def find_old_files(path : String, filetypes : Array(String), age : Int32) : Arra
   old_files
 end
 
-# Deletes backup files older than 3 months from DB_DIR. Uses Utils.find_old_files method
+# Deletes backup files older than 3 months from DB_DIR. Uses find_old_files method
 # to retrieve a list of those files.
 #
 def prune_files
   filetypes = ["bak", "sql"]
   age = 3
   old_files = find_old_files(DB_DIR, filetypes, age)
-  if !old_files.empty?
-    old_files.each { |file| puts "#{File.expand_path(file)}" }
+  if old_files.empty?
+    0
+  else
     old_files.each { |file| File.delete(file) }
-    puts "Deleted #{old_files.size} backup files!"
+    puts "Deleted #{old_files.size} old backup files!"
+    old_files.size
   end
 end
 
@@ -110,6 +112,11 @@ def run_restore(env)
     return {1, ""}
   end
   run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})
+end
+
+def integrity_check
+  db = "#{DB_DIR}/netlog.db"
+  run_cmd("sqlite3", {"#{db}", "Pragma integrity_check;"})
 end
 
 # Runs a system-level command and returns a Tuple(Int32, String) containing

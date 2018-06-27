@@ -31,7 +31,7 @@ end
 
 # Retrieves all records from the database, newest first
 def find_all_records
-  Memo.all("ORDER BY entry_date DESC LIMIT 10")
+  Memo.all #("ORDER BY entry_date DESC LIMIT 10")
 end
 
 # Saves/updates the row to the database.

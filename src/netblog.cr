@@ -56,7 +56,7 @@ end
 # General site route handlers
 get "/logs" do |env|
   title = "NetBLog"
-  entries = find_all_records
+  entries = Memo.all("ORDER BY entry_date DESC LIMIT 10")
   number_of_records = Memo.all.size
   my_renderer "logs"
 end
@@ -83,14 +83,18 @@ end
 
 # Route handlers for database operations
 get "/log/new" do |env|
-  "Creates new memo"
   title = "New"
   entry = Memo.new
   my_renderer "new_memo"
 end
 
+post "/log" do |env|
+  entry = Memo.new
+  env.flash["success"] = "Log entry successfully added!" if save_record(entry, env)
+  env.redirect "/logs"
+end
+
 get "/log/:id" do |env|
-  "Shows memo"
   title = "Memo"
   entry = find_record(env.params.url["id"])
   my_renderer "show_memo" if entry
@@ -103,6 +107,16 @@ get "/log/:id/edit" do |env|
   my_renderer "edit_memo" if entry
 end
 
+put "/log/:id" do |env|
+  entry = find_record(env.params.url["id"])
+  if entry
+    entry.category = env.params.body["category"]
+    entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
+    env.flash["success"] = "Log entry successfully updated!" if save_record(entry, env)
+    env.redirect "/logs"
+  end
+end
+
 get "/maintenance" do |env|
   title = "Maintenance"
   my_renderer "maintenance"
@@ -110,8 +124,8 @@ end
 
 post "/backup" do |env|
   if env.params.body["prune"] == "true"
-    prune_files
-    env.flash["success"] = "Backups successful!" if run_backup
+    number_old_files = prune_files
+    env.flash["success"] = "Backups successful. Deleted #{number_old_files} old backup files." if run_backup
   else
     env.flash["success"] = "Backups successful!" if run_backup
   end
@@ -128,9 +142,13 @@ post "/restore" do |env|
   env.redirect "/logs"
 end
 
-post "/log" do |env|
-  entry = Memo.new
-  env.flash["success"] = "Log entry successfully added!" if save_record(entry, env)
+post "/integrity_check" do |env|
+  status, result = integrity_check
+  if status == 0 && result.chomp == "ok"
+    env.flash["success"] = "All's good in the neighborhood!"
+  else
+    env.flash["danger"] = "Check under the hood: #{result}"
+  end
   env.redirect "/logs"
 end
 
@@ -145,27 +163,20 @@ post "/search_by" do |env|
   when env.params.body["search_by_date"] == "true"
     caption = "entry_date"
     queries = query_records("entry_date", env.params.body["entry_date"])
+    number_of_records = queries.size
     my_renderer "query"
   when env.params.body["search_by_category"] == "true"
     caption = "category"
     queries = query_records("category", env.params.body["category"])
+    number_of_records = queries.size
     my_renderer "query"
   when env.params.body["search_by_memo"] == "true"
     caption = "memo"
     queries = query_records("memo", env.params.body["memo"])
+    number_of_records = queries.size
     my_renderer "query"
   else
     env.redirect "/search"
-  end
-end
-
-put "/log/:id" do |env|
-  entry = find_record(env.params.url["id"])
-  if entry
-    entry.category = env.params.body["category"]
-    entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
-    env.flash["success"] = "Log entry successfully updated!" if save_record(entry, env)
-    env.redirect "/logs"
   end
 end
 

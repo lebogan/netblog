@@ -2,7 +2,8 @@
 
 Netblog is a browser-enabled network maintenance log book. It
 is actually a re-write of my command-line utility, netlog. As such, 
-it can be used as a front-end for an existing netlog database.
+it can be used as a front-end for an existing netlog database - 
+not meant to be published as a web site using Heroku or other services.
 
 **This app is currently in development, not ready for use yet!**
 
