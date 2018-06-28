@@ -1,4 +1,4 @@
-section.container-fluid style="height: 500px"
+section.container-fluid.well
   div.form-group
     label for="category" Category:
     select.form-control name="category" value="#{entry.category}"

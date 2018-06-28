@@ -1,4 +1,4 @@
-section.container-fluid
+section.container-fluid.well
   div.panel.panel-default
     div.panel-heading
       p Search results for "#{env.params.body["#{caption}"]}"

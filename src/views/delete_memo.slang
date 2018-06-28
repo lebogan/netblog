@@ -1,4 +1,4 @@
-section.container-fluid style="height: 500px"
+section.container-fluid.well
   == render "src/views/alerts.slang"
   h4 Edit Log Entry
   form.form

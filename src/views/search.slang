@@ -1,4 +1,4 @@
-section.container-fluid.well style="height: 500px"
+section.container-fluid.well
   h4 Simple search
   p Select one search item and enter search criteria
 

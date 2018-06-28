@@ -55,16 +55,25 @@ under the `Backup` tab.
 > Subsequent pulls for upgrading will require that the binary be recompiled.
 
 ## Usage
+Here are some screenshots.
 
-![figure 1](./src/public/images/screenshot.png)
+### Main Page
+
+![figure 1](./src/public/images/NetBLog.png)
+
+### Search Page
+![figure 2](./src/public/images/Search.png)
+
+### Maintenance Page
+![figure 3](./src/public/images/Maintenance.png)
 
 ## TODO
 
 [ ] - Incorporate an installation script  
-[X] - Make this a standalone app by including micrate and a migration file.
-[X] - Add database restore function
-[ ] - Consolidate backup/restore on one page
-[ ] - Add pagination to all pages with 10+ listings
+[X] - Make this a standalone app by including micrate and a migration file.  
+[X] - Add database restore function  
+[X] - Consolidate backup/restore on one page  
+[ ] - Add pagination to all pages with 10+ listings  
 [ ] - Daemonize the app  
 [ ] - Redo the logo and favicon  
 
