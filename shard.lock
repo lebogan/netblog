@@ -10,7 +10,7 @@ shards:
 
   granite:
     github: amberframework/granite
-    version: 0.12.0
+    version: 0.12.1
 
   kemal:
     github: kemalcr/kemal
@@ -30,7 +30,7 @@ shards:
 
   micrate:
     github: amberframework/micrate
-    version: 0.3.1
+    version: 0.3.3
 
   radix:
     github: luislavena/radix
@@ -42,5 +42,5 @@ shards:
 
   sqlite3:
     github: crystal-lang/crystal-sqlite3
-    version: 0.9.0
+    version: 0.10.0
 

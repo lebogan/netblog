@@ -39,7 +39,7 @@ end
 # Configuration blocks for Kemal and Kemal::Session
 Kemal.config.tap do |config|
   config.env = "development"
-  config.host_binding = "192.168.33.14"
+  config.host_binding = "0.0.0.0"
   config.port = 4567
   config.public_folder = "./src/public"
 end
@@ -56,19 +56,12 @@ end
 title = "NetBLog"
 
 # General site route handlers
-get "/logs" do |env|
-  title = "NetBLog"
-  #entries = find_all_records #Memo.all("ORDER BY entry_date DESC LIMIT 10")
-  #number_of_records = Memo.all.size
-  my_renderer "logs"
-end
-
-get "/about" do #|env|
+get "/about" do
   title = "About"
   my_renderer "about"
 end
 
-get "/license" do# |env|
+get "/license" do
   title = "License"
   my_renderer "license"
 end
@@ -84,9 +77,13 @@ error 500 do
 end
 
 # Route handlers for database operations
+get "/logs" do |env|
+  title = "NetBLog"
+  my_renderer "logs"
+end
+
 get "/log/new" do #|env|
-  title = "New"
-  #entry = Memo.new
+  title = "New Entry"
   my_renderer "new_memo"
 end
 
@@ -103,9 +100,8 @@ get "/log/:id" do |env|
 end
 
 get "/log/:id/edit" do |env|
-  title = "Edit"
+  title = "Edit Entry"
   entry = find_record(env.params.url["id"])
-  #entry = Memo.find env.params.url["id"]
   my_renderer "edit_memo" if entry
 end
 
@@ -154,7 +150,7 @@ post "/integrity_check" do |env|
   env.redirect "/logs"
 end
 
-get "/search" do #|env|
+get "/search" do
   title = "Search"
   my_renderer "search"
 end
@@ -165,17 +161,14 @@ post "/search_by" do |env|
   when env.params.body["search_by_date"] == "true"
     caption = "entry_date"
     queries = query_records("entry_date", env.params.body["entry_date"])
-    #number_of_records = queries.size
     my_renderer "query"
   when env.params.body["search_by_category"] == "true"
     caption = "category"
     queries = query_records("category", env.params.body["category"])
-    #number_of_records = queries.size
     my_renderer "query"
   when env.params.body["search_by_memo"] == "true"
     caption = "memo"
     queries = query_records("memo", env.params.body["memo"])
-    #number_of_records = queries.size
     my_renderer "query"
   else
     env.redirect "/search"
@@ -183,7 +176,7 @@ post "/search_by" do |env|
 end
 
 get "/log/:id/delete" do |env|
-  title = "Delete"
+  title = "Delete Entry"
   env.flash["danger"] = "Log entry is about to be deleted!!!"
   entry = find_record(env.params.url["id"])
   my_renderer "delete_memo" if entry
