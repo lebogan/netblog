@@ -38,13 +38,19 @@ under the `Backup` tab.
 > The compiled binary will not run on Ubuntu as is. It complains about libpcre.so.1 
 > not being available. It will have to be compiled with Crystal which may or may not
 > be [installed](https://devdocs.io/crystal/docs/installation/on_debian_and_ubuntu).
-> 
+> There may also be a complaint about libssl.so.1.1 not being found.
+>
 > The below instructions can be used in a shell script. Be sure that at least git
 > is installed. I have run into instances where it is not:
 > ```bash
 > $ sudo apt-get install git curl build-essential sqlite3 libsqlite3-dev
 > $ curl https://dist.crystal-lang.org/apt/setup.sh | sudo bash
 > $ sudo apt-get install crystal
+> $ locate libssl.so
+> /lib/x86_64-linux-gnu/libssl.so.1.0.0
+> /usr/lib/x86_64-linux-gnu/libssl.so
+> $ export LD_LIBRARY_PATH=/lib/x86_64-linux-gnu/:/usr/lib/x86_64-linux-gnu/
+> $ sudo ldcongig
 > $ git clone https://github.com/lebogan/netblog.git
 > $ cd netblog
 > $ shards install
