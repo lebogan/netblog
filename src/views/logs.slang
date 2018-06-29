@@ -1,11 +1,12 @@
 section.container-fluid
   == render "src/views/alerts.slang"
-  h4 10 Most recent of #{number_of_records} entries
+  h4 10 Most recent of #{Memo.count} entries
   div.panel.panel-default
     div.panel-heading
       div
         a.btn.btn-default href="/log/new" Create a new log entry
     div.panel-body      
+      - entries = find_all_records
       - if entries.any?
           table.table.table-striped.table-bordered
             thead

@@ -53,20 +53,22 @@ macro my_renderer(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
 end
 
+title = "NetBLog"
+
 # General site route handlers
 get "/logs" do |env|
   title = "NetBLog"
-  entries = Memo.all("ORDER BY entry_date DESC LIMIT 10")
-  number_of_records = Memo.all.size
+  #entries = find_all_records #Memo.all("ORDER BY entry_date DESC LIMIT 10")
+  #number_of_records = Memo.all.size
   my_renderer "logs"
 end
 
-get "/about" do |env|
+get "/about" do #|env|
   title = "About"
   my_renderer "about"
 end
 
-get "/license" do |env|
+get "/license" do# |env|
   title = "License"
   my_renderer "license"
 end
@@ -82,9 +84,9 @@ error 500 do
 end
 
 # Route handlers for database operations
-get "/log/new" do |env|
+get "/log/new" do #|env|
   title = "New"
-  entry = Memo.new
+  #entry = Memo.new
   my_renderer "new_memo"
 end
 
@@ -103,7 +105,7 @@ end
 get "/log/:id/edit" do |env|
   title = "Edit"
   entry = find_record(env.params.url["id"])
-  entry = Memo.find env.params.url["id"]
+  #entry = Memo.find env.params.url["id"]
   my_renderer "edit_memo" if entry
 end
 
@@ -137,7 +139,7 @@ post "/restore" do |env|
   if status == 0
     env.flash["success"] = "Restore successful!"
   else
-    env.flash["warning"] = "Restore failed!"
+    env.flash["warning"] = "Restore failed: #{result}"
   end
   env.redirect "/logs"
 end
@@ -152,7 +154,7 @@ post "/integrity_check" do |env|
   env.redirect "/logs"
 end
 
-get "/search" do |env|
+get "/search" do #|env|
   title = "Search"
   my_renderer "search"
 end
@@ -163,17 +165,17 @@ post "/search_by" do |env|
   when env.params.body["search_by_date"] == "true"
     caption = "entry_date"
     queries = query_records("entry_date", env.params.body["entry_date"])
-    number_of_records = queries.size
+    #number_of_records = queries.size
     my_renderer "query"
   when env.params.body["search_by_category"] == "true"
     caption = "category"
     queries = query_records("category", env.params.body["category"])
-    number_of_records = queries.size
+    #number_of_records = queries.size
     my_renderer "query"
   when env.params.body["search_by_memo"] == "true"
     caption = "memo"
     queries = query_records("memo", env.params.body["memo"])
-    number_of_records = queries.size
+    #number_of_records = queries.size
     my_renderer "query"
   else
     env.redirect "/search"

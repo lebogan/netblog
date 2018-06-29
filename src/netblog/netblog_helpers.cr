@@ -9,7 +9,8 @@
 # Distributed under terms of the MIT license.
 # ===============================================================================
 
-DB_DIR = File.expand_path("~/netlog_db")
+DB_DIR = ENV["DB_DIR"]
+#DB_DIR = File.expand_path("~/netlog_db")
 
 # Capitalizes only the first word in a string, leaving the rest untouched. This
 # preserves the words I want capitalized intentionally.

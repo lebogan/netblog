@@ -1,8 +1,8 @@
 section.container-fluid.well
   div.panel.panel-default
     div.panel-heading
-      p Search results for "#{env.params.body["#{caption}"]}"
-        | found #{number_of_records} records
+      p Search results for "#{env.params.body["#{caption}"]}": 
+        | found #{queries.size} records
     div.panel-body      
       - if queries.any?
           table.table.table-striped.table-bordered
