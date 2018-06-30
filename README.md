@@ -1,13 +1,28 @@
 # netblog
 
-Netblog is a browser-enabled network maintenance log book. It
-is actually a re-write of my command-line utility, netlog. As such, 
-it can be used as a front-end for an existing netlog database - 
-not meant to be published as a web site using Heroku or other services.
-
 **This app is currently in development, not ready for use yet!**
 
+**Netblog** is a browser-enabled network maintenance log book. It
+is actually a re-write of my command-line utility, **netlog**. As such, 
+it can be used as a front-end for the existing netlog database - 
+not meant to be published as a web site using Heroku or other services.
+
+Why am I doing this?
+- Not everyone uses the command-line
+- Learn more Crystal and Kemal
+- Add HTML, CSS, and Bootstrap to the learning mix
+- Just have fun:-)
+
+## Requirements
+The sqlite3 binary and sqlite3-dev(el) library are needed by the maintenance
+function for backups, restores, and integrity checks. Make sure they are 
+installed for your distribution. There are additional requirements for distros
+other than Fedora - which this was developed on.
+
 ## Installation
+
+### Redhat/Fedora/CentOS
+
 ```bash
 $ git clone https://github.com/lebogan/netblog.git
     or
@@ -17,24 +32,15 @@ $ ./install.sh
 $ source ~/.bashrc (one time only)
 ```
 The installation script will symbolically link the program, netblog, to the
-location, /usr/local/bin. The empty database is installed in $HOME/netblog_db.
-An environment variable, DATABASE_URL, is added to .bashrc for exporting 
-into the user's session. Either `source .bashrc` or log out and back in. This 
-is how the application finds the database.
+location, /usr/local/bin. An empty database is installed in $HOME/netblog_db
+if one doesn't already exist. Environment variables, DB_DIR and DATABASE_URL,
+are added to .bashrc for exporting into the user's session. Either `source .bashrc` 
+or log out and back in. This is how the application finds the database.
 
 To update, just run ***install.sh*** in the netblog directory. The script pulls a fresh
 copy from GitHub or BitBucket and since the app is symbolically linked, you're finished.
 
-For completeness, a backup script, backup_db.sh, is provided to both backup the
-entire database in a .bak file and dump the main table into a .sql file.
-These files are timestamped and maybe should be committed to a 
-source repository like git. Add this script to cron for automation.
-
-Additionally, since the backup files can grow over time, files older than 90 days
-can be deleted after the current backup process runs. Just check the prune box
-under the `Backup` tab.
-
-> ### Installation on Debian and Ubuntu
+> ### Installation on Ubuntu
 > The compiled binary will not run on Ubuntu as is. It complains about libpcre.so.1 
 > not being available. It will have to be compiled with Crystal which may or may not
 > be [installed](https://devdocs.io/crystal/docs/installation/on_debian_and_ubuntu).
@@ -58,7 +64,19 @@ under the `Backup` tab.
 > $ ./install.sh
 > $ source ~/.bashrc (one time only)
 > ```
-> Subsequent pulls for upgrading will require that the binary be recompiled.
+> Subsequent pulls for upgrading will require that the shards be updated and 
+> the binary recompiled.
+
+> ### Debian and Mint
+> Both also complain about libssl in addition to libz. Install as indicated 
+> below and then follow the Ubuntu instructions. You may not need to
+> export the LD_LIBRARY_PATH. Debian 9 really complains about the ssl stuff(it's
+> all about libssl1.0-dev, crystal-lang issue - `crystal doesn't work with OpenSSL 1.1.0f (Debian 9) #4680`)
+> ```bash
+> $ sudo apt install zlib1g-dev libssl-dev libssl1.0-dev
+> ```
+> Subsequent pulls for upgrading will require that the shards be updated and 
+> the binary recompiled.
 
 ## Usage
 Here are some screenshots.
@@ -75,12 +93,12 @@ Here are some screenshots.
 
 ## TODO
 
-[ ] - Incorporate an installation script  
+[X] - Incorporate an installation script  
 [X] - Make this a standalone app by including micrate and a migration file.  
 [X] - Add database restore function  
 [X] - Consolidate backup/restore on one page  
-[ ] - Add pagination to all pages with 10+ listings  
-[ ] - Daemonize the app  
+[ ] - Add pagination to all listings  
+[ ] - Daemonize the app or use systemctl to control it.    
 [ ] - Redo the logo and favicon  
 
 ## Development
@@ -104,10 +122,13 @@ This utility is available as open source under the terms of the
 
 ## Disclaimer
 This utility was originally created for personal use in my work as a network
-specialist. It was developed on a virtual Fedora Workstation using Crystal 0.25.0.
-This has been tested on Fedora 26/27/28 Workstation.
+specialist. It was developed on a virtual Fedora Workstation using Crystal 0.25.1.
+This has been tested on Fedora 26/27/28 Workstation. Painfully tested on 
+Debian GNU/Linux 9 (stretch) 64-bit, Ubuntu 16.04 LTS, and Linux Mint 18.3 
+Cinnamon 64-bit.
 
 I am not a professional software developer nor do I pretend to be. I am a **retired** IT 
 network specialist and this is a hobby to keep me out of trouble. If you 
 use this application and it doesn't work the way you would want, feel free to 
-fork it and modify it to your liking. Fork on GitHub at https://github.com/lebogan/netblog.git
+fork it and modify it to your liking. Or, challange me to fix it;-).
+Should be fun! Fork on GitHub at https://github.com/lebogan/netblog.git

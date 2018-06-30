@@ -38,7 +38,7 @@ prompt ()
   then
     echo ""
   else
-    break
+    exit 1
   fi
 }
 
@@ -65,8 +65,14 @@ fi
 # Export DATABASE_URL environment variable by adding it to the end of .bashrc.
 grep -F -q "DATABASE_URL" ${HOME}/.bashrc
 if [ "$?" -ne "0" ]; then
-  echo "No environment variables set! Setting it now."
+  echo "Setting DATABASE_URL environment variable"
   echo "export DATABASE_URL="sqlite3:${db_dir}/netlog.db"" >> $HOME/.bashrc
+fi
+
+# Export DB_DIR environment variable by adding it to the end of .bashrc.
+grep -F -q "DB_DIR" ${HOME}/.bashrc
+if [ "$?" -ne "0" ]; then
+  echo "Setting DB_DIR environment variable"
   echo "export DB_DIR="${db_dir}"" >> $HOME/.bashrc
 fi
 
@@ -74,14 +80,16 @@ cat <<FINISH
 
 --------------------------------------------------------------------------
 Application, netblog, is now set up and ready to use. The database,
-${db_dir}/netlog.db, is empty and ready for use. The application,
-netblog, has been installed in ${install_dir}. Make sure that is in your
-path.
+${db_dir}/netlog.db, is ready for use. The application, netblog, has
+been installed in ${install_dir}. Make sure that is in your path.
 
 Before first use, source the .bashrc file to export the DATABASE_URL
-environment variable.
+and DB_DIR environment variables.
 
 Important: use the included shell script, backup_db.sh, to keep the 
 database backed up and protected from oopsies!
+
+Note: Debian/Ubuntu users have to recompile the binary. See the 
+accompanying README.md file.
 --------------------------------------------------------------------------
 FINISH
