@@ -16,8 +16,8 @@ Why am I doing this?
 ## Requirements
 The sqlite3 binary and sqlite3-dev(el) library are needed by the maintenance
 function for backups, restores, and integrity checks. Make sure they are 
-installed for your distribution. There are additional requirements for distros
-other than Fedora - which this was developed on.
+installed for your distribution and are a current version. There are additional
+requirements for distros other than Fedora - which this was developed on.
 
 ## Installation
 
@@ -99,7 +99,7 @@ Here are some screenshots.
 [X] - Consolidate backup/restore on one page  
 [ ] - Add pagination to all listings  
 [ ] - Daemonize the app or use systemctl to control it.    
-[ ] - Redo the logo and favicon  
+[X] - Redo the logo and favicon  
 
 ## Development
 

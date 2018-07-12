@@ -9,8 +9,9 @@ html lang="en-US"
     link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png"
   body
     header.container-fluid
-      img.img-rounded src="/images/netblog-1.png" alt="NetBLog"
-      h4 Network Logging Utility
+      img.img-rounded src="/images/logo.png" alt="NetBLog"
+        span
+          h4 Maintenance Logger
       == render "src/views/nav.slang"
 
     section.container-fluid

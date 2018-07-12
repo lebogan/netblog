@@ -17,7 +17,7 @@ section.container-fluid.well
       form.form method="POST" action="/restore"
         div.form-group
           label for="restore_file" Restore file:
-          input type="file" name="restore_file" accept=".sql"
+          input type="file" name="restore_file" accept=".sql, .bak"
         div.form-group
           button.btn.btn-default type="submit" Restore
 
