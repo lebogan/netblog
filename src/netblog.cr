@@ -49,11 +49,11 @@ Kemal::Session.config.tap do |config|
   config.engine = Kemal::Session::MemoryEngine.new
 end
 
+# Helps make code easier to read and write using a helper macro.
+#
 macro my_renderer(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
 end
-
-title = "NetBLog"
 
 # General site route handlers
 get "/about" do

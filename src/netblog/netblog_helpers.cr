@@ -10,13 +10,12 @@
 # ===============================================================================
 
 DB_DIR = ENV["DB_DIR"]
-#DB_DIR = File.expand_path("~/netlog_db")
 
 # Capitalizes only the first word in a string, leaving the rest untouched. This
 # preserves the words I want capitalized intentionally.
 #
 # ```
-# Netlog.capitalize!("my dog has Fleas") # => "My dog has Fleas"
+# capitalize!("my dog has Fleas") # => "My dog has Fleas"
 # ```
 def capitalize!(string : String) : String
   string[0].to_s.upcase + string[1..string.size]
@@ -25,11 +24,11 @@ end
 # Returns a timestamped _filename_ as a Tuple(String) with no path element.
 #
 # ```
-# Utils.timestamp_filename(test.log) # => {"test_mm-dd-yyyy-hhmm.log"}
+# timestamp_filename(test.log) # => {"test_mm-dd-yyyy-hhmm.log"}
 # ```
 #
 # Access the string with:
-# ```
+# ```text
 # {"test_mm-dd-yyyy-hhmm.log"}[0] # => test_mm-dd-yyyy-hhmm.log
 # ```
 #
@@ -42,9 +41,9 @@ end
 # is present.
 #
 # ```
-# Netlog.punctuate!("let's end this")  # => "let's end this."
-# Netlog.punctuate!("let's end this!") # => "let's end this!"
-# Netlog.punctuate!("let's end this?") # => "let's end this?"
+# punctuate!("let's end this")  # => "let's end this."
+# punctuate!("let's end this!") # => "let's end this!"
+# punctuate!("let's end this?") # => "let's end this?"
 # ```
 def punctuate!(string : String) : String
   case string
@@ -63,7 +62,7 @@ end
 # ```
 #
 # ```
-# Utils.find_old_files("./src", ["*.c"], 3) # => Array(String)
+# find_old_files("./src", ["*.c"], 3) # => Array(String)
 # ```
 #
 def find_old_files(path : String, filetypes : Array(String), age : Int32) : Array(String)
@@ -107,6 +106,7 @@ def run_backup
 end
 
 # Restores the database by reading a .sql or binary restore using .bak file.
+# Will show failure using .sql file if the table already exists, but restores anyway. 
 #
 def run_restore(env)
   db = "#{DB_DIR}/netlog.db"
@@ -132,7 +132,7 @@ end
 # status, and command output or error. Args default to "".
 #
 # ```
-# status, result = Utils.run_cmd("ls", {"-ls"}) # => 0, listing string
+# status, result = run_cmd("ls", {"-ls"}) # => 0, listing string
 # ```
 #
 def run_cmd(cmd : String, args : Tuple = {""}) : Tuple(Int32, String)
