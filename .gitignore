@@ -1,9 +1,8 @@
 /docs/
 /lib/
-/.shards/
+.shards/
 .*.swp
 dev.sh
-/.vscode/
 sentry
 /config/*.sql
 /config/*.bak

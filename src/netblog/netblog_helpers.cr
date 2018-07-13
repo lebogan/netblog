@@ -106,15 +106,23 @@ def run_backup
   run_cmd("sqlite3", {"#{db}", ".timeout 20000", ".backup #{bak_filename}"})
 end
 
+# Restores the database by reading a .sql or binary restore using .bak file.
+#
 def run_restore(env)
   db = "#{DB_DIR}/netlog.db"
   restore_file = "#{DB_DIR}/#{env.params.body["restore_file"]}"
   unless File.file?(File.expand_path(restore_file))
     return {1, ""}
   end
-  run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})
+  if File.extname(restore_file) == ".sql"
+    run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})
+  else
+    run_cmd("sqlite3", {"#{db}", ".restore #{restore_file}"})
+  end
 end
 
+# Checks the integrity of indexes, structure, and for corruption.
+#
 def integrity_check
   db = "#{DB_DIR}/netlog.db"
   run_cmd("sqlite3", {"#{db}", "Pragma integrity_check;"})
