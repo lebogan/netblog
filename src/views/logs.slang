@@ -1,4 +1,4 @@
-section.container-fluid
+section.container-fluid style="height: 500px"
   == render "src/views/alerts.slang"
   h4 10 Most recent of #{Memo.count} entries
   div.panel.panel-default

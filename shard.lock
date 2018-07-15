@@ -13,7 +13,7 @@ shards:
     version: 0.12.1
 
   kemal:
-    github: kemalcr/kemal
+    github: lebogan/kemal
     version: 0.23.0
 
   kemal-flash:

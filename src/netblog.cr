@@ -82,7 +82,7 @@ get "/logs" do |env|
   my_renderer "logs"
 end
 
-get "/log/new" do #|env|
+get "/log/new" do # |env|
   title = "New Entry"
   my_renderer "new_memo"
 end

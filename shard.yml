@@ -1,5 +1,5 @@
 name: netblog
-version: 0.6.8
+version: 0.6.10
 
 authors:
   - lebogan <lewis.bogan@comcast.net>
@@ -22,7 +22,7 @@ dependencies:
   granite:
     github: amberframework/granite
   kemal:
-    github: kemalcr/kemal
+    github: lebogan/kemal
   slang:
     github: jeromegn/slang
   kemal-flash:

@@ -106,7 +106,7 @@ def run_backup
 end
 
 # Restores the database by reading a .sql or binary restore using .bak file.
-# Will show failure using .sql file if the table already exists, but restores anyway. 
+# Will show failure using .sql file if the table already exists, but restores anyway.
 #
 def run_restore(env)
   db = "#{DB_DIR}/netlog.db"
