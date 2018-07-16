@@ -22,6 +22,7 @@ dependencies:
   granite:
     github: amberframework/granite
   kemal:
+    # github: kemalcr/kemal
     github: lebogan/kemal
   slang:
     github: jeromegn/slang
