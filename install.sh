@@ -49,7 +49,7 @@ then
   prompt "Do you want to install netblog? (y/n)[n] "
   sudo ln -s $(realpath ./netblog) $install_dir/netblog
   # Create a secret to sign session ids before they are saved in cookies.
-  echo "export `crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME\.bashrc
+  echo "export SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
   echo "netblog installed."
 else
   prompt "Do you want to upgrade netblog? (y/n)[n] "
