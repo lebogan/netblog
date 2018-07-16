@@ -11,6 +11,5 @@
 
 module Netblog
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
-  KEMAL_VERSION = {{ `shards list`.stringify.split("\n") }}
   LICENSE = {{ `cat LICENSE`.stringify.split("\n\n") }}
 end

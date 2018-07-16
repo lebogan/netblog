@@ -1,3 +1,14 @@
+# ===============================================================================
+#         FILE:  netblog_crud.cr
+#        USAGE:  Internal
+#  DESCRIPTION:  Defines database model and CRUD functions.
+#       AUTHOR:  Lewis E. Bogan
+#      COMPANY:  Earthsea@Home
+#      CREATED:  2018-06-10 17:00
+#    COPYRIGHT:  (C) 2018 Lewis E. Bogan <lewis.bogan@comcast.net>
+# Distributed under terms of the MIT license.
+# ===============================================================================
+
 require "sqlite3"
 require "granite/adapter/sqlite"
 

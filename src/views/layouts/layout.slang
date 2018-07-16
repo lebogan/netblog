@@ -18,7 +18,7 @@ html lang="en-US"
       /== render "src/views/alerts.slang"
       == content
 
-    footer.navbar
+    footer.navbar.navbar-inverse.navbar-fixed-bottom
       div.container-fluid
         ul.nav.navbar-nav
           li
@@ -29,3 +29,5 @@ html lang="en-US"
             a href="/license" License
           li
             a href="/about" About
+          li
+            a href="/notes" Notes

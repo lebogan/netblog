@@ -1,10 +1,10 @@
 # ===============================================================================
 #         FILE:  netblog_helpers.cr
 #        USAGE:  Internal
-#  DESCRIPTION:  Helpers
+#  DESCRIPTION:  Helper methods.
 #       AUTHOR:  Lewis E. Bogan
 #      COMPANY:  Earthsea@Home
-#      CREATED:  2018-06-25 10:53
+#      CREATED:  2018-06-10 17:00
 #    COPYRIGHT:  (C) 2018 Lewis E. Bogan <lewis.bogan@comcast.net>
 # Distributed under terms of the MIT license.
 # ===============================================================================
@@ -112,7 +112,7 @@ def run_restore(env)
   db = "#{DB_DIR}/netlog.db"
   restore_file = "#{DB_DIR}/#{env.params.body["restore_file"]}"
   unless File.file?(File.expand_path(restore_file))
-    return {1, ""}
+    return {1, "No file selected for restore."}
   end
   if File.extname(restore_file) == ".sql"
     run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})

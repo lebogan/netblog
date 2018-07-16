@@ -48,6 +48,8 @@ if [ ! -L ${install_dir}/netblog ]
 then
   prompt "Do you want to install netblog? (y/n)[n] "
   sudo ln -s $(realpath ./netblog) $install_dir/netblog
+  # Create a secret to sign session ids before they are saved in cookies.
+  echo "export `crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME\.bashrc
   echo "netblog installed."
 else
   prompt "Do you want to upgrade netblog? (y/n)[n] "
@@ -87,9 +89,10 @@ Before first use, source the .bashrc file to export the DATABASE_URL
 and DB_DIR environment variables.
 
 Important: use the included shell script, backup_db.sh, to keep the 
-database backed up and protected from oopsies!
+database backed up and protected from oopsies! Use in a cron job.
 
 Note: Debian/Ubuntu users have to recompile the binary. See the 
 accompanying README.md file.
 --------------------------------------------------------------------------
 FINISH
+

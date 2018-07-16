@@ -5,8 +5,6 @@
 #      RELEASE:  crystal build --release src/netblog.cr
 #  DESCRIPTION:  Browser-enabled network maintenance logger written in Crystal
 # REQUIREMENTS:  shards: see shard.yml
-#         TODO:  ---
-#         NOTE:  ---
 #       AUTHOR:  Lewis E. Bogan
 #      COMPANY:  Earthsea@Home
 #      CREATED:  2018-06-10 17:00
@@ -45,7 +43,10 @@ Kemal.config.tap do |config|
 end
 
 Kemal::Session.config.tap do |config|
-  config.secret = "my_really_super_secret"
+  config.secret = ENV["SESSION_SECRET"]
+  config.cookie_name = "netblog_sessid"
+  config.gc_interval = 2.minutes # 2 minute garbage collection
+  #config.secret = "my_really_super_secret"
   config.engine = Kemal::Session::MemoryEngine.new
 end
 
@@ -64,6 +65,11 @@ end
 get "/license" do
   title = "License"
   my_renderer "license"
+end
+
+get "/notes" do
+  title = "Notes"
+  my_renderer "notes"
 end
 
 error 404 do
