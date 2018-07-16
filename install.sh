@@ -48,8 +48,6 @@ if [ ! -L ${install_dir}/netblog ]
 then
   prompt "Do you want to install netblog? (y/n)[n] "
   sudo ln -s $(realpath ./netblog) $install_dir/netblog
-  # Create a secret to sign session ids before they are saved in cookies.
-  echo "export SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
   echo "netblog installed."
 else
   prompt "Do you want to upgrade netblog? (y/n)[n] "
@@ -76,6 +74,13 @@ grep -F -q "DB_DIR" ${HOME}/.bashrc
 if [ "$?" -ne "0" ]; then
   echo "Setting DB_DIR environment variable"
   echo "export DB_DIR="${db_dir}"" >> $HOME/.bashrc
+fi
+
+# Create a secret to sign session ids before they are saved in cookies.
+grep -F -q "SESSION_SECRET" ${HOME}/.bashrc
+if [ "$?" -ne "0" ]; then
+  echo "Setting SESSION_SECRET environment variable"
+  echo "export SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
 fi
 
 cat <<FINISH
