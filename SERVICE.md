@@ -1,6 +1,11 @@
 # netblog.service installation
 
-## Edit the included service file
+## Copy the file to the service directory
+```
+$ sudo cp netblog.service /etc/systemd/system/netblog.service
+```
+
+## Edit using a text editor
 The ◄ symbol marks the places which need editing. The installation created a random
 64-bit secret. Use export to get it and paste it into the service file.
 ```bash
@@ -43,14 +48,14 @@ WantedBy=multi-user.target
 
 ```
 
-## Copy the file to the service directory
-```
-$ sudo cp netblog.service /etc/systemd/system/netblog.service
-```
-
 ## Reload the service daemon
 ```
 $ sudo systemctl daemon-reload
+```
+
+## Edit using systemctl; no need to do a daemon-reload
+```
+$ sudo systemctl edit netblog.service --full
 ```
 
 ## Start and enable the service
