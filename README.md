@@ -40,6 +40,11 @@ or log out and back in. This is how the application finds the database.
 To update, just run ***install.sh*** in the netblog directory. The script pulls a fresh
 copy from GitHub or BitBucket and since the app is symbolically linked, you're finished.
 
+**Experimental**
+A systemd service file has been included for automatically controlling the app as a 
+service. Edit the file filling in the indicated entries, copy it to `/etc/systemd/system`
+, reload the systemd daemon, and start/enable the service. See `SERVICE.md` for details.
+
 > ### Installation on Ubuntu
 > The compiled binary will not run on Ubuntu as is. It complains about libpcre.so.1 
 > not being available. It will have to be compiled with Crystal which may or may not

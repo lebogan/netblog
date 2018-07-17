@@ -46,7 +46,6 @@ Kemal::Session.config.tap do |config|
   config.secret = ENV["SESSION_SECRET"]
   config.cookie_name = "netblog_sessid"
   config.gc_interval = 2.minutes # 2 minute garbage collection
-  #config.secret = "my_really_super_secret"
   config.engine = Kemal::Session::MemoryEngine.new
 end
 

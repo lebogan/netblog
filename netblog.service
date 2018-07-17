@@ -1,21 +1,28 @@
 [Unit]
-Description=Maintenance logger
+Description=Netblog maintenance logger
 After=network.target
 
 [Service]
-# Foreground process (do not use --daemon in ExecStart)
 Type=simple
 
 # Preferably configure a non-privileged user
-User=vagrant
-Group=vagrant
+User=<username>
+Group=<usergroup>
 
-# The path to the application root. In development, it is /vagrant/Projects/crystal/kemal_apps/netblog
-# For production, it is /opt/netblog
-WorkingDirectory=/vagrant/Projects/crystal/kemal_apps/netblog
+# The path to the application root, i.e., /home/<username>/netblog
+# This loads all public assets such as css, javascript, images, etc.
+WorkingDirectory=/home/<username>/netblog
 
-# The command to start the service.
-ExecStart=/usr/local/bin/netblog --daemon --pidfile /tmp
+# Environment variables
+Environment=DB_DIR=path_to_database
+Environment=DATABASE_URL=sqlite3:fully_qualified_path_to_database
+Environment=SESSION_SECRET=the_secret_from_your_bashrc
+
+PIDFile=/tmp/netblog.pid
+
+# The command to start the service - this is a symbolic link to the executable in
+# the installation directory.
+ExecStart=/usr/local/bin/netblog
 
 TimeoutSec=30
 RestartSec=15s
