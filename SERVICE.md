@@ -60,14 +60,32 @@ $ sudo systemctl enable netblog.service
 ```
 
 ## Troubleshoot
-Use journalctl or systemctl status to see what went wrong
-```
+Use journalctl or systemctl status to see what went wrong.
+```bash
 $ journalctl -xe
-or
+
+or:
+
 $ sudo systemctl status netblog.service
 ```
 
-## This is what mine looks like
+Expect SELinux to complain about everything. Either disable it or add netblog
+to the policy.
+```bash
+SELinux:
+$ sudo ausearch -c 'netblog' --raw | audit2allow -M my-netblog
+$ sudo semodule -i my-netblog.pp
+
+or:
+
+$ sudo setenforce 0 <one shot>
+
+or:
+
+edit /etc/selinux/config and set SELINUX=permissive
+```
+
+## This is what mine looks like on my development box
 ```
 [Unit]
 .
