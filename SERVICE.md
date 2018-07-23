@@ -14,7 +14,7 @@ $ export | grep SESSION_SECRET
 
 ```
 [Unit]
-Description=Netblog maintenance logger
+Description=Netblog maintenance logger front-end
 After=network.target
 
 [Service]
@@ -24,13 +24,13 @@ Type=simple
 User=<username> ◄
 Group=<usergroup> ◄
 
-# The path to the application root, i.e., /home/<username>/netblog
+# The absolute path to the application root, i.e., /home/<username>/netblog
 # This loads all public assets such as css, javascript, images, etc.
 WorkingDirectory=/home/<username>/netlog  ◄
 
 # Environment variables
-Environment=DB_DIR=path_to_database ◄
-Environment=DATABASE_URL=sqlite3:fully_qualified_path_to_database ◄
+Environment=DB_DIR=absolute_path_to_database_directory ◄
+Environment=DATABASE_URL=sqlite3:absolute_path_to_database/netlog.db ◄
 Environment=SESSION_SECRET=the_secret_from_your_bashrc ◄
 
 PIDFile=/tmp/netblog.pid
