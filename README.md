@@ -11,7 +11,9 @@ Why am I doing this?
 - Not everyone uses the command-line
 - Learn more Crystal and Kemal
 - Add HTML, CSS, and Bootstrap to the learning mix
-- Just have fun:-)
+- Just have fun:-)  
+
+Please, see the Disclaimer below.
 
 ## Requirements
 The sqlite3 binary and sqlite3-dev(el) library are needed by the maintenance
@@ -33,8 +35,8 @@ $ source ~/.bashrc (one time only)
 ```
 The installation script will symbolically link the program, netblog, to the
 location, /usr/local/bin. An empty database is installed in $HOME/netblog_db
-if one doesn't already exist. Environment variables, DB_DIR and DATABASE_URL,
-are added to .bashrc for exporting into the user's session. Either `source .bashrc` 
+if one doesn't already exist. Environment variables, DB_DIR and DATABASE_URL,and SESSION_SECRET
+are added to .bashrc for exporting into the user's environment. Either `source .bashrc` 
 or log out and back in. This is how the application finds the database.
 
 To update, just run ***install.sh*** in the netblog directory. The script pulls a fresh
@@ -103,8 +105,9 @@ Here are some screenshots.
 [X] - Add database restore function  
 [X] - Consolidate backup/restore on one page  
 [ ] - Add pagination to all listings  
-[ ] - Daemonize the app or use systemctl to control it.    
+[X] - Daemonize the app or use systemctl to control it.  
 [X] - Redo the logo and favicon  
+[ ] - Add edit/delet links on search results page
 
 ## Development
 
