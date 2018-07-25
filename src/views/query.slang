@@ -11,8 +11,12 @@ section.container-fluid.well
                 th Entry Date
                 th Category
                 th Memo
+                th Action
             - queries.each do |query|
                 tr
                   td #{query.entry_date}
                   td #{query.category}
                   td #{query.memo}
+                  td
+                    a href="/log/#{query.id}/edit" Edit
+                    a href="/log/#{query.id}/delete" Delete

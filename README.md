@@ -100,14 +100,9 @@ Here are some screenshots.
 
 ## TODO
 
-[X] - Incorporate an installation script  
-[X] - Make this a standalone app by including micrate and a migration file.  
-[X] - Add database restore function  
-[X] - Consolidate backup/restore on one page  
 [ ] - Add pagination to all listings  
-[X] - Daemonize the app or use systemctl to control it.  
-[X] - Redo the logo and favicon  
-[ ] - Add edit/delet links on search results page
+[X] - Add edit/delet links on search results page
+[ ] - Update to Bootstrap 4
 
 ## Development
 
