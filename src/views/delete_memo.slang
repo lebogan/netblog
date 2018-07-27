@@ -1,20 +1,16 @@
-section.container-fluid.well
-  == render "src/views/alerts.slang"
-  h4 Edit Log Entry
-  form.form
+/delete_memo.slang
+== render "src/views/alerts.slang"
+section.container-fluid.card
+  h4 Delete log entry for #{entry.entry_date}
+  form
     div.form-group
       label for="category" Category:
-      select.form-control name="category" value="#{entry.category}"
-        option INFO
-        option INSTALL
-        option KERNEL
-        option UPDATE
-        option FIRMWARE
+      input.form-control type="text" name="category" value="#{entry.category}" disabled=true
     div.form-group
       label for="memo" Memo:
-      input.form-control type="text" name="memo" value="#{entry.memo}"
+      input.form-control type="text" name="memo" value="#{entry.memo}" disabled=true
   form action="/log/#{entry.id}" method="POST"
     input type="hidden" name="_method" value="DELETE"
-    input type="submit" value="delete this entry"
-    a.btn.btn-default href="/logs" Return to Logs
+    input.btn.btn-outline-danger type="submit" value="Delete Entry"
+    a.btn.btn-secondary role="button" href="/logs" Return to Logs
 

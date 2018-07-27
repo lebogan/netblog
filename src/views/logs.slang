@@ -1,11 +1,11 @@
-section.container-fluid style="height: 500px"
+section.container-fluid
   == render "src/views/alerts.slang"
   h4 10 Most recent of #{Memo.count} entries
-  div.panel.panel-default
-    div.panel-heading
+  div.card
+    div.card-header
       div
-        a.btn.btn-default href="/log/new" Create a new log entry
-    div.panel-body      
+        a.btn.btn-secondary role="button" href="/log/new" Create a new log entry
+    div.card-body
       - entries = find_all_records
       - if entries.any?
           table.table.table-striped.table-bordered

@@ -1,9 +1,9 @@
-section.container-fluid.well
-  div.panel.panel-default
-    div.panel-heading
+section.container-fluid
+  div.card
+    div.card-header
       p Search results for "#{env.params.body["#{caption}"]}": 
-        | found #{queries.size} records
-    div.panel-body      
+        | found #{queries.size} record(s)
+    div.card-content      
       - if queries.any?
           table.table.table-striped.table-bordered
             thead

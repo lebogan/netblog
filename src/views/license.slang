@@ -1,3 +1,3 @@
-section.container-fluid.well
+section.container-fluid.card
   - Netblog::LICENSE.each do |line|
       p #{line}

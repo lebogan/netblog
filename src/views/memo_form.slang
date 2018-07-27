@@ -1,4 +1,4 @@
-section.container-fluid.well
+section.container-fluid
   div.form-group
     label for="category" Category:
     select.form-control name="category" value="#{entry.category}"
@@ -11,4 +11,4 @@ section.container-fluid.well
     label for="memo" Memo:
     input.form-control type="text" name="memo" value="#{entry.memo}"
   input type="submit" value="Save Entry"
-  a.btn.btn-default href="/logs" Return to Logs
+  a.btn.btn-secondary role="button" href="/logs" Return to Logs
