@@ -1,8 +1,8 @@
-section.container-fluid.well 
-  div.panel.panel-default
-    div.panel-header
+section.container-fluid
+  div.card
+    div.card-header
       p Application notes:
-    div.panel-body
+    div.card-body
       pre 1. Data input constraints
         |       Categories are limited to the selection list presented
         |       Memos are formatted to be consistent in appearance, i.e., 

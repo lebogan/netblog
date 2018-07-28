@@ -1,2 +1,0 @@
-sqlite:
-  database: "sqlite3:./config/netlog.db"

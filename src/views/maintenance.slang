@@ -18,7 +18,7 @@ section.container-fluid
           label for="restore_file" Restore file:
           input.form-control type="file" name="restore_file" accept=".sql, .bak"
         div.form-group
-          button.btn.btn-outline-secondary type="submit" Restore
+          button.btn.btn-outline-warning type="submit" Restore
 
   br
   div.card

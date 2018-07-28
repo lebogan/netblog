@@ -1,15 +1,15 @@
+/logs.slang
 section.container-fluid
   == render "src/views/alerts.slang"
   h4 10 Most recent of #{Memo.count} entries
   div.card
     div.card-header
-      div
-        a.btn.btn-secondary role="button" href="/log/new" Create a new log entry
+      a.btn.btn-outline-secondary role="button" href="/log/new" Create a new log entry
     div.card-body
       - entries = find_all_records
       - if entries.any?
           table.table.table-striped.table-bordered
-            thead
+            thead.thead-light
               tr
                 th Entry Date
                 th Category

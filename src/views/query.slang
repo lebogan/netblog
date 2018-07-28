@@ -1,3 +1,4 @@
+/query.slang
 section.container-fluid
   div.card
     div.card-header
@@ -6,7 +7,7 @@ section.container-fluid
     div.card-content      
       - if queries.any?
           table.table.table-striped.table-bordered
-            thead
+            thead.thead-light
               tr
                 th Entry Date
                 th Category

@@ -1,5 +1,5 @@
 /footer.slang
-div
+div.mt-5
   nav.navbar.navbar-expand-md.bg-dark.navbar-dark.navbar-bottom
     span.navbar-text  Copyright ©
       == Time.now.to_s("%Y")

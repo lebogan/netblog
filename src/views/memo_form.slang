@@ -1,3 +1,4 @@
+/memo_form.slang
 section.container-fluid
   div.form-group
     label for="category" Category:
@@ -10,5 +11,5 @@ section.container-fluid
   div.form-group
     label for="memo" Memo:
     input.form-control type="text" name="memo" value="#{entry.memo}"
-  input type="submit" value="Save Entry"
+  input.btn.btn-outline-secondary type="submit" value="Save Entry"
   a.btn.btn-secondary role="button" href="/logs" Return to Logs

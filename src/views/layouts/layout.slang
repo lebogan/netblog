@@ -5,7 +5,6 @@ html lang="en-US"
     title== title
     meta charset="utf-8"
     meta name="viewport" content="width=device-width, initial-scale=1"
-    / link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     link rel="stylesheet" href="/css/styles.css"
     link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png"
@@ -14,8 +13,6 @@ html lang="en-US"
       == render "src/views/header.slang"
 
     section.container-fluid
-      /== render "src/views/alerts.slang"
-      == render "src/views/nav.slang"
       == content
 
     footer.container-fluid
