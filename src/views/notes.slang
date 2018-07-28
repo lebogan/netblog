@@ -34,5 +34,5 @@ section.container-fluid
         |         If you accidentally deleted the database, netlog will automatically
         |         create a new empty one for you when you start the app. Find a good
         |         backup you stored somewhere else and use the restore function under
-        |         'Database maintenance' for restoring the data.
+        |         'Maintenance' for restoring the data.
         |

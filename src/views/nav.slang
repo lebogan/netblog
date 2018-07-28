@@ -1,5 +1,4 @@
 /nav.slang
-/nav
 div.collapse.navbar-collapse id="collapsibleNavbar"
   ul.navbar-nav
     li.nav-item
