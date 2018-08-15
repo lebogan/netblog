@@ -12,7 +12,7 @@
 require "sqlite3"
 require "granite/adapter/sqlite"
 
-Granite.settings.logger = Logger.new(nil) # suppress debug output from amber.
+#Granite.settings.logger = Logger.new(nil) # suppress debug output from amber.
 
 # Models the entries table and preprocesses entries using callbacks.
 class Memo < Granite::Base

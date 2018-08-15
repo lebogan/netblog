@@ -9,8 +9,7 @@ section.container-fluid.card
     div.form-group
       label for="memo" Memo:
       input.form-control type="text" name="memo" value="#{entry.memo}" disabled=true
-  form action="/log/#{entry.id}" method="POST"
-    input type="hidden" name="_method" value="DELETE"
+  form action="/log/#{entry.id}/delete" method="POST"
     input.btn.btn-outline-danger type="submit" value="Delete Entry"
     a.btn.btn-secondary role="button" href="/logs" Return to Logs
 

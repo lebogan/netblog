@@ -8,7 +8,7 @@ html lang="en-US"
     link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     link rel="stylesheet" href="/css/styles.css"
     link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png"
-  body
+  body style="height: 1400px"
     header.container-fluid
       == render "src/views/header.slang"
 

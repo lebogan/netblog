@@ -87,21 +87,15 @@ get "/logs" do |env|
   my_renderer "logs"
 end
 
-get "/log/new" do # |env|
+get "/log/new" do
   title = "New Entry"
   my_renderer "new_memo"
 end
 
-post "/log" do |env|
+post "/log/new" do |env|
   entry = Memo.new
   env.flash["success"] = "Log entry successfully added!" if save_record(entry, env)
   env.redirect "/logs"
-end
-
-get "/log/:id" do |env|
-  title = "Memo"
-  entry = find_record(env.params.url["id"])
-  my_renderer "show_memo" if entry
 end
 
 get "/log/:id/edit" do |env|
@@ -110,7 +104,7 @@ get "/log/:id/edit" do |env|
   my_renderer "edit_memo" if entry
 end
 
-put "/log/:id" do |env|
+post "/log/:id/edit" do |env|
   entry = find_record(env.params.url["id"])
   if entry
     entry.category = env.params.body["category"]
@@ -187,7 +181,8 @@ get "/log/:id/delete" do |env|
   my_renderer "delete_memo" if entry
 end
 
-delete "/log/:id" do |env|
+post "/log/:id/delete" do |env|
+#delete "/log/:id" do |env|
   entry = find_record(env.params.url["id"])
   delete_record(entry) if entry
   env.redirect "/logs"
