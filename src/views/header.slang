@@ -1,9 +1,9 @@
 /header.slang
 div
-  nav.navbar.navbar-expand-md.bg-light.navbar-light
+  nav.navbar.bg-light.navbar-light
 
     /! Brand
-    a.navbar-brand href="/logs"
+    a.navbar-brand href="/"
       img.img-fluid src="/images/logo.png" alt="NetBLog"
       span.navbar-text Maintenance Logger
 
