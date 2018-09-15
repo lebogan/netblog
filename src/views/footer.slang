@@ -1,6 +1,6 @@
 /footer.slang
 div
-  nav.navbar.navbar-expand-md.bg-dark.navbar-dark
+  nav.navbar.navbar-expand-md.bg-dark.navbar-dark.fixed-bottom
     span.navbar-text  Copyright ©
       == Time.now.to_s("%Y")
       | Lewis E. Bogan

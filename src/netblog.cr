@@ -82,7 +82,7 @@ error 500 do
 end
 
 # Route handlers for database operations
-get "/logs" do |env|
+get "/" do |env|
   title = "NetBLog"
   my_renderer "logs"
 end
@@ -95,7 +95,7 @@ end
 post "/log/new" do |env|
   entry = Memo.new
   env.flash["success"] = "Log entry successfully added!" if save_record(entry, env)
-  env.redirect "/logs"
+  env.redirect "/"
 end
 
 get "/log/:id/edit" do |env|
@@ -110,7 +110,7 @@ post "/log/:id/edit" do |env|
     entry.category = env.params.body["category"]
     entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
     env.flash["success"] = "Log entry successfully updated!" if save_record(entry, env)
-    env.redirect "/logs"
+    env.redirect "/"
   end
 end
 
@@ -126,7 +126,7 @@ post "/backup" do |env|
   else
     env.flash["success"] = "Backups successful!" if run_backup
   end
-  env.redirect "/logs"
+  env.redirect "/"
 end
 
 post "/restore" do |env|
@@ -136,7 +136,7 @@ post "/restore" do |env|
   else
     env.flash["warning"] = "Restore failed: #{result}"
   end
-  env.redirect "/logs"
+  env.redirect "/"
 end
 
 post "/integrity_check" do |env|
@@ -146,7 +146,7 @@ post "/integrity_check" do |env|
   else
     env.flash["danger"] = "Check under the hood: #{result}"
   end
-  env.redirect "/logs"
+  env.redirect "/"
 end
 
 get "/search" do
@@ -185,7 +185,7 @@ post "/log/:id/delete" do |env|
 #delete "/log/:id" do |env|
   entry = find_record(env.params.url["id"])
   delete_record(entry) if entry
-  env.redirect "/logs"
+  env.redirect "/"
 end
 
 Kemal.run
