@@ -21,7 +21,9 @@ require "kemal"
 require "kemal-session"
 require "kemal-flash"
 require "kilt/slang"
-require "./netblog/*"
+require "./netblog_crud.cr"
+require "./netblog_helpers.cr"
+require "./version.cr"
 
 # Extras for help with troubleshooting
 def show_env(*data)
@@ -39,7 +41,7 @@ Kemal.config.tap do |config|
   config.env = "development"
   config.host_binding = "0.0.0.0"
   config.port = 4567
-  config.public_folder = "./src/public"
+  # config.public_folder = "./src/public"
 end
 
 Kemal::Session.config.tap do |config|
@@ -182,7 +184,6 @@ get "/log/:id/delete" do |env|
 end
 
 post "/log/:id/delete" do |env|
-#delete "/log/:id" do |env|
   entry = find_record(env.params.url["id"])
   delete_record(entry) if entry
   env.redirect "/"

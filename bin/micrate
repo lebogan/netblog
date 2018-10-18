@@ -2,7 +2,7 @@
 require "micrate"
 require "sqlite3"
 
-Micrate::DB.connection_url = ENV["DATABASE_URL"]
-#Micrate::DB.connection_url = "sqlite3://config/development.db"
+#Micrate::DB.connection_url = ENV["DATABASE_URL"]
+Micrate::DB.connection_url = "sqlite3://config/netlog.db"
 Micrate::Cli.run
 
