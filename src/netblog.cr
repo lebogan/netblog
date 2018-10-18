@@ -41,7 +41,6 @@ Kemal.config.tap do |config|
   config.env = "development"
   config.host_binding = "0.0.0.0"
   config.port = 4567
-  # config.public_folder = "./src/public"
 end
 
 Kemal::Session.config.tap do |config|
