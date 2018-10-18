@@ -11,9 +11,9 @@
 #    COPYRIGHT:  (C) 2018 Lewis E. Bogan <lewis.bogan@comcast.net>
 #    GIT REPOS:  devforge, GitHub, BitBucket
 #             :  git remote add origin ssh://lewisb@devforge/var/lib/git/repos/netblog.git
-#             :  git set-url --add --push origin ssh://devforge/var/lib/git/repos/netblog.git
-#             :  git set-url --add --push origin git@github.com:lebogan/netblog.git
-#             :  git set-url --add --push origin git@bitbucket.org:lebogan/netblog.git
+#             :  git remote set-url --add --push origin ssh://devforge/var/lib/git/repos/netblog.git
+#             :  git remote set-url --add --push origin git@github.com:lebogan/netblog.git
+#             :  git remote set-url --add --push origin git@bitbucket.org:lebogan/netblog.git
 #             :  git push -u origin master
 # Distributed under terms of the MIT license.
 # ===============================================================================

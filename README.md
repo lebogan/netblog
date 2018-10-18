@@ -22,9 +22,7 @@ installed for your distribution and are a current version. There are additional
 requirements for distros other than Fedora - which this was developed on.
 
 ## Installation
-
 ### Redhat/Fedora/CentOS
-
 ```bash
 $ git clone https://github.com/lebogan/netblog.git
     or
@@ -89,27 +87,24 @@ service. Edit the file filling in the indicated entries, copy it to `/etc/system
 Here are some screenshots.
 
 ### Main Page
-
-![figure 1](./src/public/images/NetBLog.png)
+![figure 1](./public/images/NetBLog.png)
 
 ### Search Page
-![figure 2](./src/public/images/Search.png)
+![figure 2](./public/images/Search.png)
 
 ### Maintenance Page
-![figure 3](./src/public/images/Maintenance.png)
+![figure 3](./public/images/Maintenance.png)
 
 ## TODO
-
 [ ] - Add pagination to all listings  
-[X] - Add edit/delet links on search results page
-[ ] - Update to Bootstrap 4
+[X] - Add edit/delet links on search results page  
+[X] - Update to Bootstrap 4  
+[ ] - Move database to PostgreSQL  
 
 ## Development
-
 Please, see the Disclaimer below.
 
 ## Contributing
-
 1. Fork it ( https://github.com/[your-github-name]/netblog/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
