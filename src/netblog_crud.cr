@@ -42,17 +42,14 @@ class Memo < Granite::Base
   end
 end
 
+# Saves a row to the database.
+def save_record(entry)
+  entry.save
+end
+
 # Retrieves all records from the database, newest first
 def find_all_records
   Memo.all("ORDER BY entry_date DESC LIMIT 10")
-end
-
-# Saves/updates the row to the database.
-def save_record(entry, env)
-  entry.entry_date = Time.now.to_s("%FT%T")
-  entry.category = env.params.body["category"]
-  entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
-  entry.save
 end
 
 # Find a record by id.

@@ -95,7 +95,10 @@ end
 
 post "/log/new" do |env|
   entry = Memo.new
-  env.flash["success"] = "Log entry successfully added!" if save_record(entry, env)
+  entry.entry_date = Time.now.to_s("%FT%T")
+  entry.category = env.params.body["category"]
+  entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
+  env.flash["success"] = "Log entry successfully added!" if save_record(entry)
   env.redirect "/"
 end
 
@@ -110,7 +113,7 @@ post "/log/:id/edit" do |env|
   if entry
     entry.category = env.params.body["category"]
     entry.memo = punctuate!(capitalize!(env.params.body["memo"]))
-    env.flash["success"] = "Log entry successfully updated!" if save_record(entry, env)
+    env.flash["success"] = "Log entry successfully updated!" if save_record(entry)
     env.redirect "/"
   end
 end
