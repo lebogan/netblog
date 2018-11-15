@@ -145,7 +145,7 @@ end
 
 post "/integrity_check" do |env|
   status, result = integrity_check
-  if status == 0 && result.chomp == "ok"
+  if status == 0 && result.includes?("ok")
     env.flash["success"] = "All's good in the neighborhood!"
   else
     env.flash["danger"] = "Check under the hood: #{result}"
