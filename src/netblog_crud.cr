@@ -12,6 +12,9 @@
 require "sqlite3"
 require "granite/adapter/sqlite"
 
+#Register the Sqlite adapter, sqlite.
+Granite::Adapters << Granite::Adapter::Sqlite.new({name: "sqlite", url: ENV["DATABASE_URL"]})
+
 unless Kemal.config.env == "development"
   Granite.settings.logger = Logger.new(nil) # suppress debug output from production.
 end
