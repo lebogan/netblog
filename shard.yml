@@ -1,5 +1,5 @@
 name: netblog
-version: 0.12.2
+version: 0.12.3
 description: |
   A simple browser interface to maintenance log, netlog.db.
 
@@ -10,7 +10,7 @@ targets:
   netblog:
     main: src/netblog.cr
 
-crystal: 0.27.0
+crystal: 0.27.2
 
 license: MIT
 
