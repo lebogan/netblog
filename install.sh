@@ -19,85 +19,124 @@
 install_dir=/usr/local/bin
 db_dir=$HOME/netlog_db
 
-prompt ()
+show_menu()
 {
-  # See if the lame SYS-V echo command flags have to be used.
-  if test "`/bin/echo 'helloch\c'`" = "helloch\c"
-  then
-    EFLAG="-n"
-    ENDER=""
-  else
-    EFLAG=""
-    ENDER="\c"
-  fi
-  ECHO="/bin/echo ${EFLAG}"
+  local choice
 
-  ${ECHO} "$1 ${ENDER}"
-  read agree
-  if test "${agree}" = "y" -o "${agree}" = "Y"
-  then
-    echo ""
-  else
-    exit 1
+  clear
+  echo "--------------------------------------------------"
+  echo "Installation script for netblog utility"
+  echo "--------------------------------------------------"
+  echo "1. Install supplied binary (Fedora only)"
+  echo "2. Update supplied binary from repo (Fedora only)"
+  echo "3. Build/install from source"
+  echo "4. Update from git source"
+  echo "5. Uninstall all (except data files)"
+  echo "q. Quit"
+  echo
+
+  read -p "Enter choice [Q/q to quit]: " choice
+  case $choice in
+    1) install_binary ;;
+    2) update_binary ;;
+    3) build_source ;;
+    4) update_source ;;
+    5) uninstall_all ;;
+    "q" | "Q") exit 0 ;;
+  esac
+}
+
+install_binary()
+{
+  sudo ln -s $(realpath ./netlog) $install_dir/netblog
+  db_setup
+  source ~/.bashrc
+  finish_msg
+}
+
+update_binary()
+{
+  git pull
+  echo "netblog binary upgraded."
+  exit 0
+}
+
+build_source()
+{
+  shards install
+  make clean
+  make
+  sudo make install
+  db_setup
+  source ~/.bashrc
+  finish_msg
+}
+
+update_source()
+{
+  git pull
+  shards update
+  make clean
+  make
+  sudo make install
+  echo "netblog updated from source"
+}
+
+uninstall_all()
+{
+  sudo make uninstall
+  sed -i.bak '/DB_DIR/d' ~/.bashrc
+  sed -i.bak '/DATABASE_URL/d' ~/.bashrc
+  sed -i.bak '/SESSION_SECRET/d' ~/.bashrc
+  source ~/.bashrc
+}
+
+db_setup()
+{
+  # Check for existance of ${db_dir} and create it if it doesn't exist.
+  if [ ! -d ${db_dir} ]; then
+    mkdir -p ${db_dir}
+    cp ./config/netlog.db ${db_dir}
+  fi
+  
+  # Export DATABASE_URL environment variable by adding it to the end of .bashrc.
+  grep -F -q "DATABASE_URL" ${HOME}/.bashrc
+  if [ "$?" -ne "0" ]; then
+    echo "Setting DATABASE_URL environment variable"
+    echo "export DATABASE_URL="sqlite3:${db_dir}/netlog.db"" >> $HOME/.bashrc
+  fi
+  
+  # Export DB_DIR environment variable by adding it to the end of .bashrc.
+  grep -F -q "DB_DIR" ${HOME}/.bashrc
+  if [ "$?" -ne "0" ]; then
+    echo "Setting DB_DIR environment variable"
+    echo "export DB_DIR="${db_dir}"" >> $HOME/.bashrc
+  fi
+  
+  # Create a secret to sign session ids before they are saved in cookies.
+  grep -F -q "SESSION_SECRET" ${HOME}/.bashrc
+  if [ "$?" -ne "0" ]; then
+    echo "Setting SESSION_SECRET environment variable"
+    echo "export SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
   fi
 }
 
-# Links application to install_dir. If the symlink exists, offer to upgrade the app
-# only and exit.
-if [ ! -L ${install_dir}/netblog ]
-then
-  prompt "Do you want to install netblog? (y/n)[n] "
-  sudo ln -s $(realpath ./netblog) $install_dir/netblog
-  echo "netblog installed."
-else
-  prompt "Do you want to upgrade netblog? (y/n)[n] "
-  git pull
-  echo "netblog upgraded."
-  exit 0
-fi
-
-# Check for existance of ${db_dir} and create it if it doesn't exist.
-if [ ! -d ${db_dir} ]; then
-  mkdir -p ${db_dir}
-  cp ./config/netlog.db ${db_dir}
-fi
-
-# Export DATABASE_URL environment variable by adding it to the end of .bashrc.
-grep -F -q "DATABASE_URL" ${HOME}/.bashrc
-if [ "$?" -ne "0" ]; then
-  echo "Setting DATABASE_URL environment variable"
-  echo "export DATABASE_URL="sqlite3:${db_dir}/netlog.db"" >> $HOME/.bashrc
-fi
-
-# Export DB_DIR environment variable by adding it to the end of .bashrc.
-grep -F -q "DB_DIR" ${HOME}/.bashrc
-if [ "$?" -ne "0" ]; then
-  echo "Setting DB_DIR environment variable"
-  echo "export DB_DIR="${db_dir}"" >> $HOME/.bashrc
-fi
-
-# Create a secret to sign session ids before they are saved in cookies.
-grep -F -q "SESSION_SECRET" ${HOME}/.bashrc
-if [ "$?" -ne "0" ]; then
-  echo "Setting SESSION_SECRET environment variable"
-  echo "export SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
-fi
-
-cat <<FINISH
+finish_msg()
+{
+  cat <<FINISH
 
 --------------------------------------------------------------------------
 Application, netblog, is now set up and ready to use. The database,
 ${db_dir}/netlog.db, is ready for use. The application, netblog, has
 been installed in ${install_dir}. Make sure that is in your path.
 
-Before first use, source the .bashrc file to export the DATABASE_URL
-and DB_DIR environment variables.
-
-Important: use the included shell script, backup_db.sh, to keep the 
-database backed up and protected from oopsies! Use in a cron job.
+Before first use, source the .bashrc file to export the DATABASE_URL,
+SESSION_SECRET and DB_DIR environment variables.
 
 Note: Debian/Ubuntu users have to recompile the binary. See the 
 accompanying README.md file.
 --------------------------------------------------------------------------
 FINISH
+}
 
+show_menu
