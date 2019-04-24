@@ -101,7 +101,6 @@ User=vagrant
 Group=vagrant
 
 # The path to the application root. In development, it is /vagrant/Projects/crystal/kemal_apps/netblog
-# For production, it is /opt/netblog
 WorkingDirectory=/vagrant/Projects/crystal/kemal_apps/netblog
 
 Environment=DB_DIR=/vagrant/Projects/crystal/kemal_apps/netblog/config
