@@ -1,6 +1,7 @@
 - case
 - when env.flash["success"]?
-    div.alert.alert-success
+    div.alert.alert-success.alert-dismissible
+      button[type="button" class="close" data-dismiss="alert"] == "&times"
       == env.flash["success"]?
 - when env.flash["info"]?
     div.alert.alert-info
