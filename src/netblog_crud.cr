@@ -40,7 +40,7 @@ class Memo < Granite::Base
   # Capitalizes the first word and inserts a period if terminating punctuation missing.
   def format_memo
     if memo = @memo
-      @memo = punctuate!(capitalize!(memo))
+      @memo = Myutils.punctuate!(Myutils.capitalize!(memo))
     end
   end
 end

@@ -12,4 +12,4 @@ section.container-fluid
     label for="memo" Memo:
     input.form-control type="text" name="memo" value="#{entry.memo}"
   input.btn.btn-outline-secondary type="submit" value="Save Entry"
-  a.btn.btn-secondary role="button" href="/logs" Return to Logs
+  a.btn.btn-secondary role="button" href="/" Return to Logs

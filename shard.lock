@@ -36,6 +36,10 @@ shards:
     github: amberframework/micrate
     version: 0.3.3
 
+  myutils:
+    github: lebogan/myutils
+    version: 0.5.3
+
   pg:
     github: will/crystal-pg
     version: 0.16.1

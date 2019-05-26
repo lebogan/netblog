@@ -28,6 +28,8 @@ dependencies:
     github: neovintage/kemal-flash
   kemal-session:
     github: kemalcr/kemal-session
+  myutils:
+    github: lebogan/myutils
 
 development_dependencies:
   ameba:
