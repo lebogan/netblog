@@ -17,7 +17,6 @@
 # Distributed under terms of the MIT license.
 #===============================================================================
 install_dir=/usr/local/bin
-db_dir=$HOME/netlog_db
 
 show_menu()
 {
@@ -85,7 +84,6 @@ update_source()
 uninstall_all()
 {
   sudo make uninstall
-  sed -i.bak '/DB_DIR/d' ~/.bashrc
   sed -i.bak '/DATABASE_URL/d' ~/.bashrc
   sed -i.bak '/SESSION_SECRET/d' ~/.bashrc
   source ~/.bashrc
@@ -93,24 +91,11 @@ uninstall_all()
 
 db_setup()
 {
-  # Check for existance of ${db_dir} and create it if it doesn't exist.
-  if [ ! -d ${db_dir} ]; then
-    mkdir -p ${db_dir}
-    cp ./config/netlog.db ${db_dir}
-  fi
-  
   # Export DATABASE_URL environment variable by adding it to the end of .bashrc.
   grep -F -q "DATABASE_URL" ${HOME}/.bashrc
   if [ "$?" -ne "0" ]; then
     echo "Setting DATABASE_URL environment variable"
-    echo "export DATABASE_URL="sqlite3:${db_dir}/netlog.db"" >> $HOME/.bashrc
-  fi
-  
-  # Export DB_DIR environment variable by adding it to the end of .bashrc.
-  grep -F -q "DB_DIR" ${HOME}/.bashrc
-  if [ "$?" -ne "0" ]; then
-    echo "Setting DB_DIR environment variable"
-    echo "export DB_DIR="${db_dir}"" >> $HOME/.bashrc
+    echo "export DATABASE_URL="postgresql://dbuser:dbuser@dbserver:5432/netlog"" >> $HOME/.bashrc
   fi
   
   # Create a secret to sign session ids before they are saved in cookies.
@@ -126,12 +111,10 @@ finish_msg()
   cat <<FINISH
 
 --------------------------------------------------------------------------
-Application, netblog, is now set up and ready to use. The database,
-${db_dir}/netlog.db, is ready for use. The application, netblog, has
-been installed in ${install_dir}. Make sure that is in your path.
+Application, netblog, is now set up and ready to use.
 
-Before first use, source the .bashrc file to export the DATABASE_URL,
-SESSION_SECRET and DB_DIR environment variables.
+Before first use, source the .bashrc file to export the DATABASE_URL and
+the SESSION_SECRET environment variables.
 
 Note: Debian/Ubuntu users have to recompile the binary. See the 
 accompanying README.md file.
