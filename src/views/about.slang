@@ -1,8 +1,8 @@
 section.container-fluid.card
-  p  NetBLog #{Netblog::VERSION}, a simple browser interface to maintenance log, netlog.db.
+  p  NetBLog #{Netblog::VERSION}, a simple browser interface to maintenance log.
   p  Executable: /usr/local/bin/netblog
-  p  Database location: $HOME/netlog_db
-  p  Built using the Crystal programming language (#{Crystal::VERSION})
+  p  Database location: dbserver:5432/netlog
+  p  Built with Crystal programming language (#{Crystal::VERSION}) [#{Time.local.to_s("%Y-%m-%d")}]
     | and Kemal Web Framework (#{Kemal::VERSION}). 
   p  Distributed under the MIT License,
     a href="http://opensource.org/licenses/MIT" http://opensource.org/licenses/MIT.
