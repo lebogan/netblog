@@ -1,5 +1,5 @@
 name: netblog
-version: 0.13.3
+version: 0.14.0
 description: |
   A simple browser interface to maintenance log, netlog.db.
 
@@ -15,9 +15,8 @@ crystal: 0.28.0
 license: MIT
 
 dependencies:
-  sqlite3:
-    github: crystal-lang/crystal-sqlite3
-    version: ~> 0.11.0
+  pg:
+    github: will/crystal-pg
   granite:
     github: amberframework/granite
     version: ~> 0.15.0
