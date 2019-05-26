@@ -23,7 +23,11 @@ require "kemal-flash"
 require "kilt/slang"
 require "./netblog_crud.cr"
 require "./netblog_helpers.cr"
-require "./version.cr"
+
+module Netblog
+  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
+  LICENSE = {{ `cat LICENSE`.stringify.split("\n\n") }}
+end
 
 # Extras for help with troubleshooting
 def show_env(*data)
@@ -118,40 +122,40 @@ post "/log/:id/edit" do |env|
   end
 end
 
-get "/maintenance" do |env|
-  title = "Maintenance"
-  my_renderer "maintenance"
-end
+# get "/maintenance" do |env|
+#  title = "Maintenance"
+#  my_renderer "maintenance"
+# end
 
-post "/backup" do |env|
-  if env.params.body["prune"] == "true"
-    number_old_files = prune_files
-    env.flash["success"] = "Backups successful. Deleted #{number_old_files} old backup files." if run_backup
-  else
-    env.flash["success"] = "Backups successful!" if run_backup
-  end
-  env.redirect "/"
-end
+# post "/backup" do |env|
+#  if env.params.body["prune"] == "true"
+#    number_old_files = prune_files
+#    env.flash["success"] = "Backups successful. Deleted #{number_old_files} old backup files." if run_backup
+#  else
+#    env.flash["success"] = "Backups successful!" if run_backup
+#  end
+#  env.redirect "/"
+# end
 
-post "/restore" do |env|
-  status, result = run_restore(env)
-  if status == 0
-    env.flash["success"] = "Restore successful!"
-  else
-    env.flash["warning"] = "Restore failed: #{result}"
-  end
-  env.redirect "/"
-end
+# post "/restore" do |env|
+#  status, result = run_restore(env)
+#  if status == 0
+#    env.flash["success"] = "Restore successful!"
+#  else
+#    env.flash["warning"] = "Restore failed: #{result}"
+#  end
+#  env.redirect "/"
+# end
 
-post "/integrity_check" do |env|
-  status, result = integrity_check
-  if status == 0 && result.includes?("ok")
-    env.flash["success"] = "All's good in the neighborhood!"
-  else
-    env.flash["danger"] = "Check under the hood: #{result}"
-  end
-  env.redirect "/"
-end
+# post "/integrity_check" do |env|
+#  status, result = integrity_check
+#  if status == 0 && result.includes?("ok")
+#    env.flash["success"] = "All's good in the neighborhood!"
+#  else
+#    env.flash["danger"] = "Check under the hood: #{result}"
+#  end
+#  env.redirect "/"
+# end
 
 get "/search" do
   title = "Search"

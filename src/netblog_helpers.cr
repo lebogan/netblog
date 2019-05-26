@@ -81,52 +81,52 @@ end
 # Deletes backup files older than 3 months from DB_DIR. Uses find_old_files method
 # to retrieve a list of those files.
 #
-def prune_files
-  filetypes = ["bak", "sql"]
-  age = 3
-  old_files = find_old_files(DB_DIR, filetypes, age)
-  if old_files.empty?
-    0
-  else
-    old_files.each { |file| File.delete(file) }
-    puts "Deleted #{old_files.size} old backup files!"
-    old_files.size
-  end
-end
+# def prune_files
+#  filetypes = ["bak", "sql"]
+#  age = 3
+#  old_files = find_old_files(DB_DIR, filetypes, age)
+#  if old_files.empty?
+#    0
+#  else
+#    old_files.each { |file| File.delete(file) }
+#    puts "Deleted #{old_files.size} old backup files!"
+#    old_files.size
+#  end
+# end
 
 # Dumps the database in .sql format and does a binary backup. Uses the SQLite3
 # binary.
 #
-def run_backup
-  db = "#{DB_DIR}/netlog.db"
-  dump_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.sql")[0]}"
-  bak_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.bak")[0]}"
-  run_cmd("sqlite3", {"#{db}", ".output #{dump_filename}", ".dump entries"})
-  run_cmd("sqlite3", {"#{db}", ".timeout 20000", ".backup #{bak_filename}"})
-end
+# def run_backup
+#  db = "#{DB_DIR}/netlog.db"
+#  dump_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.sql")[0]}"
+#  bak_filename = "#{DB_DIR}/#{timestamp_filename("netlog_db.bak")[0]}"
+#  run_cmd("sqlite3", {"#{db}", ".output #{dump_filename}", ".dump entries"})
+#  run_cmd("sqlite3", {"#{db}", ".timeout 20000", ".backup #{bak_filename}"})
+# end
 
 # Restores the database by reading a .sql or binary restore using .bak file.
 # Will show failure using .sql file if the table already exists, but restores anyway.
 #
-def run_restore(env)
-  db = "#{DB_DIR}/netlog.db"
-  restore_file = "#{DB_DIR}/#{env.params.body["restore_file"]}"
-  unless File.file?(File.expand_path(restore_file))
-    return {1, "No file selected for restore."}
-  end
-  if File.extname(restore_file) == ".sql"
-    run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})
-  else
-    run_cmd("sqlite3", {"#{db}", ".restore #{restore_file}"})
-  end
-end
+# def run_restore(env)
+#  db = "#{DB_DIR}/netlog.db"
+#  restore_file = "#{DB_DIR}/#{env.params.body["restore_file"]}"
+#  unless File.file?(File.expand_path(restore_file))
+#    return {1, "No file selected for restore."}
+#  end
+#  if File.extname(restore_file) == ".sql"
+#    run_cmd("sqlite3", {"#{db}", ".read #{restore_file}"})
+#  else
+#    run_cmd("sqlite3", {"#{db}", ".restore #{restore_file}"})
+#  end
+# end
 
 # Checks the integrity of indexes, structure, and for corruption.
 #
-def integrity_check
-  db = "#{DB_DIR}/netlog.db"
-  run_cmd("sqlite3", {"#{db}", "Pragma integrity_check;"})
-end
+# def integrity_check
+#  db = "#{DB_DIR}/netlog.db"
+#  run_cmd("sqlite3", {"#{db}", "Pragma integrity_check;"})
+# end
 
 # Runs a system-level command and returns a Tuple(Int32, String) containing
 # status, and command output or error. Args default to "".
@@ -135,13 +135,13 @@ end
 # status, result = run_cmd("ls", {"-ls"}) # => 0, listing string
 # ```
 #
-def run_cmd(cmd : String, args : Tuple = {""}) : Tuple(Int32, String)
-  stdout_str = IO::Memory.new # => Stdio = Redirect::Close
-  stderr_str = IO::Memory.new # ditto
-  status = Process.run(cmd, args: args, output: stdout_str, error: stderr_str)
-  if status.success?
-    {status.exit_code, stdout_str.to_s}
-  else
-    {status.exit_code, stderr_str.to_s}
-  end
-end
+# def run_cmd(cmd : String, args : Tuple = {""}) : Tuple(Int32, String)
+#  stdout_str = IO::Memory.new # => Stdio = Redirect::Close
+#  stderr_str = IO::Memory.new # ditto
+#  status = Process.run(cmd, args: args, output: stdout_str, error: stderr_str)
+#  if status.success?
+#    {status.exit_code, stdout_str.to_s}
+#  else
+#    {status.exit_code, stderr_str.to_s}
+#  end
+# end
