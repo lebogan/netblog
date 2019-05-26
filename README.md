@@ -23,10 +23,6 @@ Please, see the Disclaimer below.
 according to your OS distribution if you are going to compile the source with
 make. You will need additional development tools, such as make, to build
 the app.
-- The sqlite3 binary and sqlite3-dev(el) library are needed by the maintenance
-function for backups, restores, and integrity checks. Make sure they are 
-installed for your distribution and are a current version. There are additional
-requirements for distros other than Fedora - which this was developed on.
 
 ### Preferred Installation <a name="preferred-installation"></a>
 Use the `install.sh` script provided. Although a Fedora-based binary is provided,
@@ -45,6 +41,9 @@ A Makefile is included for compiling and installing the binary and/or man pages.
 Crystal is required to be pre installed. The binary is copied to `/usr/local/bin`.
 The Makefile also provides for uninstalling and compilation cleanup. The compiled
 binary is in `./bin`.
+
+Pick your operating system here, [crystal-lang](https://crystal-lang.org/reference/installation/),
+and follow the installation instructions.
 
 ```bash
 $ git clone https://github.com/lebogan/netblog.git
@@ -109,14 +108,11 @@ Here are some screenshots.
 ### Search Page
 ![figure 2](./public/images/Search.png)
 
-### Maintenance Page
-![figure 3](./public/images/Maintenance.png)
-
 ## TODO
 [ ] - Add pagination to all listings  
 [X] - Add edit/delet links on search results page  
 [X] - Update to Bootstrap 4  
-[ ] - Move database to PostgreSQL  
+[X] - Move database to PostgreSQL  
 [X] - Make installation script menu-driven
 
 ## Development
