@@ -1,8 +1,8 @@
 #!/usr/bin/env crystal
 require "micrate"
-require "sqlite3"
+require "pg"
 
 #Micrate::DB.connection_url = ENV["DATABASE_URL"]
-Micrate::DB.connection_url = "sqlite3://config/netlog.db"
+Micrate::DB.connection_url = "postgresql://dbuser:dbuser@dbserver:5432/netlog"
 Micrate::Cli.run
 
