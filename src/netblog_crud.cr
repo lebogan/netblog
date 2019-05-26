@@ -9,11 +9,11 @@
 # Distributed under terms of the MIT license.
 # ===============================================================================
 
-require "sqlite3"
-require "granite/adapter/sqlite"
+require "pg"
+require "granite/adapter/pg"
 
-#Register the Sqlite adapter, sqlite.
-Granite::Adapters << Granite::Adapter::Sqlite.new({name: "sqlite", url: ENV["DATABASE_URL"]})
+# Register the PostgreSQL adapter, pg.
+Granite::Adapters << Granite::Adapter::Pg.new({name: "pg", url: ENV["DATABASE_URL"]})
 
 unless Kemal.config.env == "development"
   Granite.settings.logger = Logger.new(nil) # suppress debug output from production.
@@ -21,7 +21,7 @@ end
 
 # Models the entries table and preprocesses entries using callbacks.
 class Memo < Granite::Base
-  adapter sqlite
+  adapter pg
   before_save :upcase_category
   before_save :format_memo
 
