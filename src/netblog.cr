@@ -42,8 +42,13 @@ module Netblog
   end
 
   # Configuration blocks for Kemal and Kemal::Session
+  def Kemal.display_startup_message(config, server)
+    addresses = server.addresses.map { |address| "#{config.scheme}://#{address}" }.join ", "
+    log "[#{config.env}] NetBlog is alive at #{addresses}"
+  end
+
   Kemal.config.tap do |config|
-    config.env = "development"
+    config.env = "production"
     config.host_binding = resolve_ip_address
     config.port = 4567
   end

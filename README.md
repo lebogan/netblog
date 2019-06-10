@@ -114,6 +114,7 @@ Here are some screenshots.
 [X] - Update to Bootstrap 4  
 [X] - Move database to PostgreSQL  
 [X] - Make installation script menu-driven
+[ ] - Aggregage search criteria
 
 ## Development
 Please, see the Disclaimer below.

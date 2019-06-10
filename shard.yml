@@ -1,5 +1,5 @@
 name: netblog
-version: 0.14.0
+version: 0.14.1
 description: |
   A simple browser interface to maintenance log, netlog.db.
 
@@ -10,18 +10,20 @@ targets:
   netblog:
     main: src/netblog.cr
 
-crystal: 0.28.0
+crystal: 0.29.0
 
 license: MIT
 
 dependencies:
   pg:
     github: will/crystal-pg
+    version: ~> 0.16.0
   granite:
     github: amberframework/granite
-    version: ~> 0.15.0
+    version: ~> 0.16.0
   kemal:
     github: kemalcr/kemal
+    version: ~> 0.25.0
   slang:
     github: jeromegn/slang
   kemal-flash:
@@ -30,9 +32,11 @@ dependencies:
     github: kemalcr/kemal-session
   myutils:
     github: lebogan/myutils
+    version: ~> 0.5.0
 
 development_dependencies:
   ameba:
     github: veelenga/ameba
+    version: ~> 0.10.0
   micrate:
     github: amberframework/micrate
