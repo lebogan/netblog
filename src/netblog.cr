@@ -35,6 +35,11 @@ module Netblog
     "#{data}"
   end
 
+  def self.date
+    time = {{ (env("SOURCE_DATE_EPOCH") || `date +%s`).to_i }}
+    Time.unix(time).to_s("%Y-%m-%d")
+  end
+
   class Object
     macro methods
    {{ @type.methods.map &.name.stringify }}
