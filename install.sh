@@ -95,7 +95,7 @@ db_setup()
   grep -F -q "DATABASE_URL" ${HOME}/.bashrc
   if [ "$?" -ne "0" ]; then
     echo "Setting DATABASE_URL environment variable"
-    echo "export DATABASE_URL="postgresql://dbuser:dbuser@dbserver:5432/netlog"" >> $HOME/.bashrc
+    echo "export DATABASE_URL="postgresql://dbuser:dbuser@dbserver2:5432/netlog"" >> $HOME/.bashrc
   fi
   
   # Create a secret to sign session ids before they are saved in cookies.
