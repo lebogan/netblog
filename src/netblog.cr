@@ -35,11 +35,6 @@ module Netblog
     "#{data}"
   end
 
-  def self.date
-    time = {{ (env("SOURCE_DATE_EPOCH") || `date +%s`).to_i }}
-    Time.unix(time).to_s("%Y-%m-%d")
-  end
-
   class Object
     macro methods
    {{ @type.methods.map &.name.stringify }}
@@ -58,6 +53,10 @@ module Netblog
     config.port = 4567
   end
 
+  if Kemal.config.env == "production"
+    Kemal.config.logging = false
+  end
+
   Kemal::Session.config.tap do |config|
     config.secret = ENV["SESSION_SECRET"]
     config.cookie_name = "netblog_sessid"
@@ -65,7 +64,7 @@ module Netblog
     config.engine = Kemal::Session::MemoryEngine.new
   end
 
-  # Helps make code easier to read and write using a helper macro.
+  # Helps make rendering views easier to read and write using a helper macro.
   #
   macro my_renderer(filename)
   render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"

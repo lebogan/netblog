@@ -33,4 +33,9 @@ module Netblog
   def self.resolve_ip_address
     resolve_hostname(System.hostname).to_s.gsub(":7", "")
   end
+
+  def self.date
+    time = {{ (env("SOURCE_DATE_EPOCH") || `date +%s`).to_i }}
+    Time.unix(time).to_s("%Y-%m-%d")
+  end
 end
