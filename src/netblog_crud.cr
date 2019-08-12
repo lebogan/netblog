@@ -29,6 +29,7 @@ class Memo < Granite::Base
   field entry_date : String
   field category : String
   field memo : String
+  timestamps
 
   # Converts category to upper case.
   def upcase_category

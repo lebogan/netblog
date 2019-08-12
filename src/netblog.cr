@@ -125,7 +125,6 @@ end
   post "/log/:id/edit" do |env|
     entry = find_record(env.params.url["id"])
     if entry
-      # entry.entry_date = Time.local.to_s("%F %T")
       entry.category = env.params.body["category"]
       entry.memo = Myutils.punctuate!(Myutils.capitalize!(env.params.body["memo"]))
       env.flash["success"] = "Log entry successfully updated!" if save_record(entry)
