@@ -3,6 +3,6 @@ require "micrate"
 require "pg"
 
 #Micrate::DB.connection_url = ENV["DATABASE_URL"]
-Micrate::DB.connection_url = "postgresql://dbuser:dbuser@dbserver:5432/netlog"
+Micrate::DB.connection_url = "postgresql://dbuser:dbuser@localhost:5432/netlog"
 Micrate::Cli.run
 

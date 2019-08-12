@@ -1,0 +1,9 @@
+---
+display_name: netblog
+shard_name: netblog
+install_shards: false
+info: true
+build: crystal build  --warnings all ./src/netblog.cr -o ./bin/netblog
+run: ./bin/netblog
+watch: ["./src/*.cr", "./src/**/*.slang", "./public/images/*.png"]
+colorize: true
