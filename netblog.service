@@ -14,8 +14,8 @@ Group=<usergroup>
 WorkingDirectory=/home/<username>/netblog
 
 # Environment variables
-Environment=DATABASE_URL=postgresql://<user>:<password>@<dbhost>:5432/netlog
-Environment=SESSION_SECRET=the_secret_from_your_bashrc
+Environment=NETBLOG_DATABASE_URL=postgresql://<user>:<password>@<dbhost>:5432/netlog
+Environment=NETBLOG_SESSION_SECRET=the_secret_from_your_bashrc
 
 PIDFile=/tmp/netblog.pid
 

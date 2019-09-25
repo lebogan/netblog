@@ -26,8 +26,8 @@ show_menu()
   echo "--------------------------------------------------"
   echo "Installation script for netblog utility"
   echo "--------------------------------------------------"
-  echo "1. Install supplied binary (Fedora only)"
-  echo "2. Update supplied binary from repo (Fedora only)"
+  echo "1. Install supplied binary (Fedora only) - DEPRECIATED"
+  echo "2. Update supplied binary from repo (Fedora only) - DEPRECIATED"
   echo "3. Build/install from source"
   echo "4. Update from git source"
   echo "5. Uninstall all (except data files)"
@@ -84,25 +84,25 @@ update_source()
 uninstall_all()
 {
   sudo make uninstall
-  sed -i.bak '/DATABASE_URL/d' ~/.bashrc
-  sed -i.bak '/SESSION_SECRET/d' ~/.bashrc
+  sed -i.bak '/NETBLOG_DATABASE_URL/d' ~/.bashrc
+  sed -i.bak '/NETBLOG_SESSION_SECRET/d' ~/.bashrc
   source ~/.bashrc
 }
 
 db_setup()
 {
-  # Export DATABASE_URL environment variable by adding it to the end of .bashrc.
-  grep -F -q "DATABASE_URL" ${HOME}/.bashrc
+  # Export NETBLOG_DATABASE_URL environment variable by adding it to the end of .bashrc.
+  grep -F -q "NETBLOG_DATABASE_URL" ${HOME}/.bashrc
   if [ "$?" -ne "0" ]; then
-    echo "Setting DATABASE_URL environment variable"
-    echo "export DATABASE_URL="postgresql://dbuser:dbuser@dbserver2:5432/netlog"" >> $HOME/.bashrc
+    echo "Setting NETBLOG_DATABASE_URL environment variable"
+    echo "export NETBLOG_DATABASE_URL="postgresql://dbuser:dbuser@dbserver2:5432/netlog"" >> $HOME/.bashrc
   fi
   
   # Create a secret to sign session ids before they are saved in cookies.
-  grep -F -q "SESSION_SECRET" ${HOME}/.bashrc
+  grep -F -q "NETBLOG_SESSION_SECRET" ${HOME}/.bashrc
   if [ "$?" -ne "0" ]; then
-    echo "Setting SESSION_SECRET environment variable"
-    echo "export SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
+    echo "Setting NETBLOG_SESSION_SECRET environment variable"
+    echo "export NETBLOG_SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
   fi
 }
 
@@ -115,9 +115,6 @@ Application, netblog, is now set up and ready to use.
 
 Before first use, source the .bashrc file to export the DATABASE_URL and
 the SESSION_SECRET environment variables.
-
-Note: Debian/Ubuntu users have to recompile the binary. See the 
-accompanying README.md file.
 --------------------------------------------------------------------------
 FINISH
 }

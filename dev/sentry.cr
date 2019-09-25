@@ -1,4 +1,5 @@
 require "yaml"
+require "colorize"
 
 module Sentry
   FILE_TIMESTAMPS = {} of String => String # {file => timestamp}
@@ -42,6 +43,14 @@ module Sentry
       watch: {
         type:    Array(String),
         default: ["./src/**/*.cr", "./src/**/*.ecr"],
+      },
+      install_shards: {
+        type:    Bool,
+        default: false,
+      },
+      colorize: {
+        type:    Bool,
+        default: true,
       }
     )
 
@@ -59,6 +68,8 @@ module Sentry
       @run = nil
       @run_args = ""
       @watch = [] of String
+      @install_shards = false
+      @colorize = true
     end
 
     def display_name
@@ -100,6 +111,18 @@ module Sentry
       @run_args.strip.split(" ").reject(&.empty?)
     end
 
+    setter install_shards : Bool = false
+
+    def install_shards?
+      @install_shards
+    end
+
+    setter colorize : Bool = false
+
+    def colorize?
+      @colorize
+    end
+
     setter should_build : Bool = true
 
     def should_build?
@@ -120,19 +143,23 @@ module Sentry
       self.run = other.run if other.sets_run_command?
       self.run_args = other.run_args.join(" ") unless other.run_args.empty?
       self.watch = other.watch unless other.watch.empty?
+      self.install_shards = other.install_shards?
+      self.colorize = other.colorize?
     end
 
     def to_s(io : IO)
       io << <<-CONFIG
       🤖  Sentry configuration:
-            display name: #{display_name}
-            shard name:   #{self.class.shard_name}
-            info:         #{info}
-            build:        #{build}
-            build_args:   #{build_args}
-            run:          #{run}
-            run_args:     #{run_args}
-            watch:        #{watch}
+            display name:   #{display_name}
+            shard name:     #{self.class.shard_name}
+            install shards: #{install_shards?}
+            info:           #{info}
+            build:          #{build}
+            build_args:     #{build_args}
+            run:            #{run}
+            run_args:       #{run_args}
+            watch:          #{watch}
+            colorize:       #{colorize?}
       CONFIG
     end
   end
@@ -150,16 +177,28 @@ module Sentry
       @build_args : Array(String) = [] of String,
       @run_args : Array(String) = [] of String,
       files = [] of String,
-      should_build = true
+      should_build = true,
+      install_shards = false,
+      colorize = true
     )
       @files = files
       @should_build = should_build
       @should_kill = false
       @app_built = false
+      @should_install_shards = install_shards
+      @colorize = colorize
+    end
+
+    private def stdout(str : String)
+      if @colorize
+        puts str.colorize.fore(:yellow)
+      else
+        puts str
+      end
     end
 
     private def build_app_process
-      puts "🤖  compiling #{display_name}..."
+      stdout "🤖  compiling #{display_name}..."
       build_args = @build_args
       if build_args.size > 0
         Process.run(@build_command, build_args, shell: true, output: Process::Redirect::Inherit, error: Process::Redirect::Inherit)
@@ -172,13 +211,13 @@ module Sentry
       app_process = @app_process
       if app_process.is_a? Process
         unless app_process.terminated?
-          puts "🤖  killing #{display_name}..."
+          stdout "🤖  killing #{display_name}..."
           app_process.kill
           app_process.wait
         end
       end
 
-      puts "🤖  starting #{display_name}..."
+      stdout "🤖  starting #{display_name}..."
       run_args = @run_args
       if run_args.size > 0
         @app_process = Process.new(@run_command, run_args, output: Process::Redirect::Inherit, error: Process::Redirect::Inherit)
@@ -188,7 +227,7 @@ module Sentry
     end
 
     private def get_timestamp(file : String)
-      File.info(file).modification_time.epoch.to_s
+      File.info(file).modification_time.to_unix.to_s
     end
 
     # Compiles and starts the application
@@ -200,7 +239,7 @@ module Sentry
         @app_built = true
         create_app_process()
       elsif !@app_built # if build fails on first time compiling, then exit
-        puts "🤖  Compile time errors detected. SentryBot shutting down..."
+        stdout "🤖  Compile time errors detected. SentryBot shutting down..."
         exit 1
       end
     end
@@ -211,28 +250,48 @@ module Sentry
       file_changed = false
       app_process = @app_process
       files = @files
-      Dir.glob(files) do |file|
-        timestamp = get_timestamp(file)
-        if FILE_TIMESTAMPS[file]? && FILE_TIMESTAMPS[file] != timestamp
-          FILE_TIMESTAMPS[file] = timestamp
-          file_changed = true
-          puts "🤖  #{file}"
-        elsif FILE_TIMESTAMPS[file]?.nil?
-          puts "🤖  watching file: #{file}"
-          FILE_TIMESTAMPS[file] = timestamp
-          file_changed = true if (app_process && !app_process.terminated?)
+      begin
+        Dir.glob(files) do |file|
+          timestamp = get_timestamp(file)
+          if FILE_TIMESTAMPS[file]? && FILE_TIMESTAMPS[file] != timestamp
+            FILE_TIMESTAMPS[file] = timestamp
+            file_changed = true
+            stdout "🤖  #{file}"
+          elsif FILE_TIMESTAMPS[file]?.nil?
+            stdout "🤖  watching file: #{file}"
+            FILE_TIMESTAMPS[file] = timestamp
+            file_changed = true if (app_process && !app_process.terminated?)
+          end
+        end
+      rescue ex : Errno
+        # The underlining lib for reading directories will fail very rarely, crashing Sentry
+        # This catches that error and allows Sentry to carry on normally
+        # https://github.com/crystal-lang/crystal/blob/59788834554399f7fe838487a83eb466e55c6408/src/errno.cr#L37
+        unless ex.to_s == "readdir: Input/output error"
+          raise ex
         end
       end
 
       start_app() if (file_changed || app_process.nil?)
     end
 
+    def run_install_shards
+      stdout "🤖  Installing shards..."
+      install_result = Process.run("shards", ["install"], shell: true, output: Process::Redirect::Inherit, error: Process::Redirect::Inherit)
+      if !install_result || !install_result.success?
+        stdout "🤖  Error installing shards. SentryBot shutting down..."
+        exit 1
+      end
+    end
+
     def run
-      puts "🤖  Your SentryBot is vigilant. beep-boop..."
+      stdout "🤖  Your SentryBot is vigilant. beep-boop..."
+
+      run_install_shards if @should_install_shards
 
       loop do
         if @should_kill
-          puts "🤖  Powering down your SentryBot..."
+          stdout "🤖  Powering down your SentryBot..."
           break
         end
         scan_files

@@ -13,7 +13,7 @@ require "pg"
 require "granite/adapter/pg"
 
 # Register the PostgreSQL adapter, pg.
-Granite::Adapters << Granite::Adapter::Pg.new({name: "pg", url: ENV["DATABASE_URL"]})
+Granite::Connections << Granite::Adapter::Pg.new(name: "pg", url: ENV["NETBLOG_DATABASE_URL"])
 
 unless Kemal.config.env == "development"
   Granite.settings.logger = Logger.new(nil) # suppress debug output from production.
@@ -21,14 +21,15 @@ end
 
 # Models the entries table and preprocesses entries using callbacks.
 class Memo < Granite::Base
-  adapter pg
+  connection pg
   before_save :upcase_category
   before_save :format_memo
 
-  table_name entries
-  field entry_date : String
-  field category : String
-  field memo : String
+  table entries
+  column id : Int64, primary: true
+  column entry_date : String # entry is not nilable
+  column category : String?  # entry is nilable
+  column memo : String?      # entry is nilable
   timestamps
 
   # Converts category to upper case.

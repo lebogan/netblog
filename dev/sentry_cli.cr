@@ -1,4 +1,5 @@
 require "option_parser"
+require "colorize"
 require "./sentry"
 
 begin
@@ -47,6 +48,16 @@ OptionParser.parse! do |parser|
     cli_config_file_name = file
   end
   parser.on(
+    "--install",
+    "Run 'shards install' once before running Sentry build and run commands") do
+    cli_config.install_shards = true
+  end
+  parser.on(
+    "--no-color",
+    "Removes colorization from output") do
+    cli_config.colorize = false
+  end
+  parser.on(
     "-i",
     "--info",
     "Shows the values for build/run commands, build/run args, and watched files") do
@@ -70,7 +81,11 @@ config = Sentry::Config.from_yaml(config_yaml)
 config.merge!(cli_config)
 
 if config.info
-  puts config
+  if config.colorize?
+    puts config.to_s.colorize.fore(:yellow)
+  else
+    puts config
+  end
 end
 
 if Sentry::Config.shard_name
@@ -81,7 +96,9 @@ if Sentry::Config.shard_name
     build_args: config.build_args,
     run_args: config.run_args,
     should_build: config.should_build?,
-    files: config.watch
+    files: config.watch,
+    install_shards: config.install_shards?,
+    colorize: config.colorize?
   )
 
   process_runner.run
