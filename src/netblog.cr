@@ -2,7 +2,7 @@
 #         FILE:  netblog.cr
 #        USAGE:  netblog
 #  DEVELOPMENT:  crystal build|run src/netblog.cr
-#      RELEASE:  crystal build --release src/netblog.cr
+#      RELEASE:  crystal build --release --warnings all src/netblog.cr
 #  DESCRIPTION:  Browser-enabled network maintenance logger written in Crystal
 # REQUIREMENTS:  shards: see shard.yml
 #       AUTHOR:  Lewis E. Bogan
