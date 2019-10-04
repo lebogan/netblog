@@ -1,7 +1,7 @@
 # ===============================================================================
-#         FILE:  system.cr
+#         FILE:  utils.cr
 #        USAGE:  Internal
-#  DESCRIPTION:  Some socket stuff.
+#  DESCRIPTION:  Some helpers.
 #       AUTHOR:  Lewis E. Bogan
 #      COMPANY:  Earthsea@Home
 #      CREATED:  2019-05-26 12:09
@@ -10,6 +10,13 @@
 # ===============================================================================
 
 module Netblog
+  # Helps make rendering views easier to read and write by including the layout
+  # file.
+  #
+  macro my_renderer(filename)
+    render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
+  end
+
   # Does a lookup of a host's ip address and returns it as a Socket::IPAddress
   # object. Raises an error if the hostname doesn't exist or can't be resolved.
   # Remove the ":7" part with `gsub(":7"."")` to get just the ip address.
@@ -30,8 +37,8 @@ module Netblog
     addrinfo.first?.try(&.ip_address)
   end
 
-  def self.resolve_ip_address
-    resolve_hostname(System.hostname).to_s.gsub(":7", "")
+  def self.resolve_ip(hostname)
+    resolve_hostname(hostname).to_s.gsub(":7", "")
   end
 
   def self.date

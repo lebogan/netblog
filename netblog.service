@@ -11,7 +11,7 @@ Group=<usergroup>
 
 # The absolute path to the application root, i.e., /home/<username>/netblog
 # This loads all public assets such as css, javascript, images, etc.
-WorkingDirectory=/home/<username>/netblog
+WorkingDirectory=/opt/netblog
 
 # Environment variables
 Environment=NETBLOG_DATABASE_URL=postgresql://<user>:<password>@<dbhost>:5432/netlog

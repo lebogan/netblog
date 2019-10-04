@@ -23,53 +23,11 @@ require "kemal"
 require "kemal-session"
 require "kemal-flash"
 require "kilt/slang"
-require "./netblog_crud.cr"
-require "./system.cr"
+require "./netblog_crud"
+require "./utils"
+require "./config"
 
 module Netblog
-  VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
-  LICENSE = {{ `cat LICENSE`.stringify.split("\n\n") }}
-
-  # Extras for help with troubleshooting
-  def show_env(*data)
-    "#{data}"
-  end
-
-  class Object
-    macro methods
-   {{ @type.methods.map &.name.stringify }}
-  end
-  end
-
-  # Configuration blocks for Kemal and Kemal::Session
-  def Kemal.display_startup_message(config, server)
-    addresses = server.addresses.map { |address| "#{config.scheme}://#{address}" }.join ", "
-    log "[#{config.env}] NetBlog is alive at #{addresses}"
-  end
-
-  Kemal.config.tap do |config|
-    config.env = "development"
-    config.host_binding = resolve_ip_address
-    config.port = 4567
-  end
-
-  if Kemal.config.env == "production"
-    Kemal.config.logging = false
-  end
-
-  Kemal::Session.config.tap do |config|
-    config.secret = ENV["NETBLOG_SESSION_SECRET"]
-    config.cookie_name = "netblog_sessid"
-    config.gc_interval = 2.minutes # 2 minute garbage collection
-    config.engine = Kemal::Session::MemoryEngine.new
-  end
-
-  # Helps make rendering views easier to read and write using a helper macro.
-  #
-  macro my_renderer(filename)
-  render "src/views/#{{{filename}}}.slang", "src/views/layouts/layout.slang"
-end
-
   # General site route handlers
   get "/about" do
     title = "About"
@@ -171,4 +129,7 @@ end
   end
 end
 
-Kemal.run
+Kemal.run do |config|
+  server = config.server.not_nil!
+  server.bind_tcp Netblog.resolve_ip(System.hostname), 9021, reuse_port: true
+end
