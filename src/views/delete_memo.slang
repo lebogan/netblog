@@ -11,5 +11,5 @@ section.container-fluid.card
       input.form-control type="text" name="memo" value="#{entry.memo}" disabled=true
   form action="/log/#{entry.id}/delete" method="POST"
     input.btn.btn-outline-danger type="submit" value="Delete Entry"
-    a.btn.btn-secondary role="button" href="/logs" Return to Logs
+    a.btn.btn-secondary role="button" href="/" Return to Logs
 

@@ -2,7 +2,7 @@ version: 1.0
 shards:
   ameba:
     github: veelenga/ameba
-    version: 0.10.1
+    version: 0.11.0
 
   db:
     github: crystal-lang/crystal-db
@@ -14,11 +14,11 @@ shards:
 
   granite:
     github: amberframework/granite
-    version: 0.17.3
+    version: 0.18.0
 
   kemal:
     github: kemalcr/kemal
-    version: 0.26.0
+    version: 0.26.1
 
   kemal-flash:
     github: neovintage/kemal-flash
@@ -34,7 +34,7 @@ shards:
 
   micrate:
     github: amberframework/micrate
-    version: 0.3.4
+    version: 0.4.1
 
   myutils:
     github: lebogan/myutils
