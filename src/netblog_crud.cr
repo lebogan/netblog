@@ -15,10 +15,6 @@ require "granite/adapter/pg"
 # Register the PostgreSQL adapter, pg.
 Granite::Connections << Granite::Adapter::Pg.new(name: "pg", url: ENV["NETBLOG_DATABASE_URL"])
 
-unless Kemal.config.env == "development"
-  Granite.settings.logger = Logger.new(nil) # suppress debug output from production.
-end
-
 # Models the entries table and preprocesses entries using callbacks.
 class Memo < Granite::Base
   connection pg

@@ -1,6 +1,7 @@
 /docs/
 /bin/
 /lib/
+/dev/
 .shards/
 .*.swp
 dev.sh
