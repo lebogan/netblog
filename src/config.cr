@@ -8,11 +8,12 @@
 #    COPYRIGHT:  (C) 2019 Lewis E. Bogan <lewis.bogan@comcast.net>
 # Distributed under terms of the MIT license.
 # ===============================================================================
+
+# Configuration blocks for Kemal and Kemal::Session
 module Netblog
   VERSION = {{ `shards version #{__DIR__}`.chomp.stringify }}
   LICENSE = {{ `cat LICENSE`.stringify.split("\n\n") }}
 
-  # Configuration blocks for Kemal and Kemal::Session
   def Kemal.display_startup_message(config, server)
     addresses = server.addresses.map { |address| "#{config.scheme}://#{address}" }.join ", "
     log "[#{config.env}] NetBlog is alive at #{addresses}"
@@ -20,10 +21,7 @@ module Netblog
 
   Kemal.config do |config|
     config.env = "development"
-  end
-
-  if Kemal.config.env == "production"
-    Kemal.config.logging = false
+    config.logging = false if config.env == "production"
   end
 
   Kemal::Session.config.tap do |config|
