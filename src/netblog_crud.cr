@@ -19,7 +19,7 @@ Granite::Connections << Granite::Adapter::Pg.new(name: "pg", url: ENV["NETBLOG_D
 class Memo < Granite::Base
   connection pg
   before_save :upcase_category
-  before_save :format_memo
+  # before_save :format_memo
 
   table entries
   column id : Int64, primary: true
@@ -38,7 +38,7 @@ class Memo < Granite::Base
   # Capitalizes the first word and inserts a period if terminating punctuation missing.
   def format_memo
     if memo = @memo
-      @memo = Myutils.punctuate!(Myutils.capitalize!(memo))
+      @memo = Netblog.punctuate!(Netblog.capitalize!(memo))
     end
   end
 end

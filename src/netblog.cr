@@ -17,7 +17,6 @@
 #             :  git push -u origin master
 # Distributed under terms of the MIT license.
 # ===============================================================================
-require "myutils"
 require "socket"
 require "kemal"
 require "kemal-session"
@@ -69,7 +68,7 @@ module Netblog
     entry = Memo.new
     entry.entry_date = Time.local.to_s("%F %T")
     entry.category = env.params.body["category"]
-    entry.memo = Myutils.punctuate!(Myutils.capitalize!(env.params.body["memo"]))
+    entry.memo = Netblog.punctuate!(Netblog.capitalize!(env.params.body["memo"]))
     env.flash["success"] = "Log entry successfully added!" if save_record(entry)
     env.redirect "/"
   end
@@ -84,7 +83,7 @@ module Netblog
     entry = find_record(env.params.url["id"])
     if entry
       entry.category = env.params.body["category"]
-      entry.memo = Myutils.punctuate!(Myutils.capitalize!(env.params.body["memo"]))
+      entry.memo = Netblog.punctuate!(Netblog.capitalize!(env.params.body["memo"]))
       env.flash["success"] = "Log entry successfully updated!" if save_record(entry)
       env.redirect "/"
     end

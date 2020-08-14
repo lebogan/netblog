@@ -2,7 +2,7 @@ version: 2.0
 shards:
   ameba:
     git: https://github.com/veelenga/ameba.git
-    version: 0.13.0
+    version: 0.13.1
 
   db:
     git: https://github.com/crystal-lang/crystal-db.git
@@ -14,11 +14,11 @@ shards:
 
   granite:
     git: https://github.com/amberframework/granite.git
-    version: 0.21.0+git.commit.9f03488c96b69696ef315b8fb3d2fac8fa376571
+    version: 0.21.1+git.commit.72309280bf3dd5f61c42d8af0be71b428a9c00d3
 
   kemal:
     git: https://github.com/kemalcr/kemal.git
-    version: 0.26.1+git.commit.a8c0f09b858162bd13c96663febef5527b322a32
+    version: 0.26.1+git.commit.dfe7dca08f4c9a9456d6132af5f6b59fcd6865e4
 
   kemal-flash:
     git: https://github.com/neovintage/kemal-flash.git
@@ -34,10 +34,6 @@ shards:
 
   micrate:
     git: https://github.com/amberframework/micrate.git
-    version: 0.8.0
-
-  myutils:
-    git: git@earthforge.earthsea.local:lewisb/myutils.git
     version: 0.8.0
 
   pg:
