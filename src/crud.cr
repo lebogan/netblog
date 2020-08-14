@@ -1,5 +1,5 @@
 # ===============================================================================
-#         FILE:  netblog_crud.cr
+#         FILE:  crud.cr
 #        USAGE:  Internal
 #  DESCRIPTION:  Defines database model and CRUD functions.
 #       AUTHOR:  Lewis E. Bogan
@@ -19,7 +19,7 @@ Granite::Connections << Granite::Adapter::Pg.new(name: "pg", url: ENV["NETBLOG_D
 class Memo < Granite::Base
   connection pg
   before_save :upcase_category
-  # before_save :format_memo
+  before_save :format_memo
 
   table entries
   column id : Int64, primary: true
