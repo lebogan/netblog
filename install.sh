@@ -47,7 +47,7 @@ show_menu()
 
 install_binary()
 {
-  sudo ln -s $(realpath ./netlog) $install_dir/netblog
+  sudo ln -s $(realpath ./bin/netlog) $install_dir/netblog
   check_env
   finish_msg
 }
@@ -55,7 +55,6 @@ install_binary()
 update_binary()
 {
   git pull
-  check_env
   echo "netblog binary upgraded."
   exit 0
 }
@@ -77,7 +76,6 @@ update_source()
   make clean
   make
   sudo make install
-  check_env
   echo "netblog updated from source"
 }
 

@@ -1,6 +1,5 @@
 # netblog
-
-**This app is currently in development, not ready for use yet!**
+[Please, see the DISCLAIMER below](#disclaimer)
 
 **Netblog** is a browser-enabled network maintenance log book. It
 is actually a re-write of my command-line utility, **netlog**. As such, 
@@ -22,15 +21,19 @@ Please, see the Disclaimer below.
 - Install [Crystal](https://crystal-lang.org/docs/installation/)
 according to your OS distribution if you are going to compile the source with
 make. You will need additional development tools, such as make, to build
-the app.
+the app.  
+- Install `PostgreSQL` either locally or on a separate server. Micrate is included in
+the bin directory for creating the required table on a local host using `dbuser` for user and password.
+The database has to be created manually first. [See this tutorial for Ubuntu installation.](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-18-04)
+
+> You can of course use any database application you want. I just happened
+> to use PostgreSQL for this app. It was originally developed using SQLite3.
 
 ### Preferred Installation <a name="preferred-installation"></a>
-Use the `install.sh` script provided. Although a Fedora-based binary is provided,
+Use the `install.sh` script provided. Although a Debian-based binary is provided,
 this insures that the app will work here in your environment. Batteries included.   
 ```bash
 $ git clone https://github.com/lebogan/netblog.git
-    or
-$ git clone git@bitbucket.org:lebogan/netblog.git
 $ cd netblog
 $ ./install.sh
 $ source ~/.bashrc (one time only)
@@ -47,20 +50,17 @@ and follow the installation instructions.
 
 ```bash
 $ git clone https://github.com/lebogan/netblog.git
-    or
-$ git clone git@bitbucket.org:lebogan/netblog.git
 $ cd netblog
 $ shards install
 $ make
-$ make test
 $ sudo make install
 ```
 
 ```text
 Add to `/.bashrc` these lines:
-export DATABASE_URL=sqlite3:/home/<user>/netlog_db/netlog.db
-export DB_DIR=/home/<user>/netlog_db
-export SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`
+export NETBLOG_ENV="production"
+export NETBLOG_DATABASE_URL="postgresql://dbuser:dbpass@dbserver:5432/netlog"" >> $HOME/.bashrc
+export NETBLOG_SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
 ```
 
 ```bash
@@ -68,30 +68,7 @@ $ source ~/.bashrc (one time only)
 ```
 To update, just do a `git pull`, `shards update`, and proceed as above.
 
-#### Fedora
-Since development was done on a Fedora workstation, a binary is provided for
-direct usage.
-```bash
-$ git clone ssh://lewisb@devforge/var/lib/git/repos/gitme.git
-$ cd gitme
-$ ./install.sh
-```
-The installation script will symbolically link the program, gitme, to the 
-location, `/usr/local/bin`.
-
-To update, just run `install.sh` in the gitme directory. The script pulls a
-fresh copy and since the app is symbolically linked, you're finished.
-
 See also [Preferred Installation](#preferred-installation)
-
-#### Debian/Ubuntu/CentOS/RedHat/Mac
-The source will have to be recompiled with Crystal. Subsequent pulls of the repo
-will have to be recompiled.
-
-Pick your operating system here, [crystal-lang](https://crystal-lang.org/reference/installation/),
-and follow the installation instructions.
-
-See [Preferred Installation](#preferred-installation)
 
 **Experimental**
 A systemd service file has been included for automatically controlling the app as a 
@@ -117,7 +94,7 @@ Here are some screenshots.
 [ ] - Aggregage search criteria
 
 ## Development
-Please, see the Disclaimer below.
+[Please, see the DISCLAIMER below](#disclaimer)
 
 ## Contributing
 1. Fork it ( https://github.com/[your-github-name]/netblog/fork )
@@ -133,13 +110,9 @@ Please, see the Disclaimer below.
 This utility is available as open source under the terms of the
 [MIT License](http://opensource.org/licenses/MIT).
 
-## Disclaimer
+## Disclaimer <a name="disclaimer"></a>
 This utility was originally created for personal use in my work as a network
-specialist. It was developed on a virtual Fedora Workstation using Crystal 0.28.0.
-This has been tested on Fedora 28/28 Workstation. Painfully tested on 
-Debian GNU/Linux 9 (stretch) 64-bit, Ubuntu 16.04 LTS, and Linux Mint 18.3 
-Cinnamon 64-bit.
-
+specialist. 
 I am not a professional software developer nor do I pretend to be. I am a **retired** IT 
 network specialist and this is a hobby to keep me out of trouble. If you 
 use this application and it doesn't work the way you would want, feel free to 
