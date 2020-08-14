@@ -20,7 +20,7 @@ module Netblog
   end
 
   Kemal.config do |config|
-    config.env = "development"
+    config.env = ENV["NETBLOG_ENV"]
     config.logging = false if config.env == "production"
   end
 

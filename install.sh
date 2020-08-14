@@ -26,8 +26,8 @@ show_menu()
   echo "--------------------------------------------------"
   echo "Installation script for netblog utility"
   echo "--------------------------------------------------"
-  echo "1. Install supplied binary (Fedora only) - DEPRECIATED"
-  echo "2. Update supplied binary from repo (Fedora only) - DEPRECIATED"
+  echo "1. Install supplied binary (Ubuntu/Debian only)"
+  echo "2. Update supplied binary from repo (Ubuntu/Debian only)"
   echo "3. Build/install from source"
   echo "4. Update from git source"
   echo "5. Uninstall all (except data files)"
@@ -48,14 +48,14 @@ show_menu()
 install_binary()
 {
   sudo ln -s $(realpath ./netlog) $install_dir/netblog
-  db_setup
-  source ~/.bashrc
+  check_env
   finish_msg
 }
 
 update_binary()
 {
   git pull
+  check_env
   echo "netblog binary upgraded."
   exit 0
 }
@@ -66,8 +66,7 @@ build_source()
   make clean
   make
   sudo make install
-  db_setup
-  source ~/.bashrc
+  check_env
   finish_msg
 }
 
@@ -78,6 +77,7 @@ update_source()
   make clean
   make
   sudo make install
+  check_env
   echo "netblog updated from source"
 }
 
@@ -86,16 +86,25 @@ uninstall_all()
   sudo make uninstall
   sed -i.bak '/NETBLOG_DATABASE_URL/d' ~/.bashrc
   sed -i.bak '/NETBLOG_SESSION_SECRET/d' ~/.bashrc
+  sed -i.bak '/NETBLOG_ENV/d' ~/.bashrc
   source ~/.bashrc
 }
 
-db_setup()
+check_env()
 {
+  grep -F -q "NETBLOG_ENV" ${HOME}/.bashrc
+  if [ "$?" -ne "0" ]; then
+    echo "Setting NETBLOG_ENV environment variable to production"
+    echo "export NETBLOG_ENV="production"" >> $HOME/.bashrc
+    source ~/.bashrc
+  fi
+
   # Export NETBLOG_DATABASE_URL environment variable by adding it to the end of .bashrc.
   grep -F -q "NETBLOG_DATABASE_URL" ${HOME}/.bashrc
   if [ "$?" -ne "0" ]; then
     echo "Setting NETBLOG_DATABASE_URL environment variable"
     echo "export NETBLOG_DATABASE_URL="postgresql://dbuser:dbuser@dbserver2:5432/netlog"" >> $HOME/.bashrc
+    source ~/.bashrc
   fi
   
   # Create a secret to sign session ids before they are saved in cookies.
@@ -103,6 +112,7 @@ db_setup()
   if [ "$?" -ne "0" ]; then
     echo "Setting NETBLOG_SESSION_SECRET environment variable"
     echo "export NETBLOG_SESSION_SECRET=`crystal eval 'require "random/secure"; puts Random::Secure.hex(64)'`" >> $HOME/.bashrc
+    source ~/.bashrc
   fi
 }
 
@@ -113,8 +123,10 @@ finish_msg()
 --------------------------------------------------------------------------
 Application, netblog, is now set up and ready to use.
 
-Before first use, source the .bashrc file to export the DATABASE_URL and
-the SESSION_SECRET environment variables.
+Before first use, source the .bashrc file to export the DATABASE_URL,
+ENV and the SESSION_SECRET environment variables.
+
+Modify the included service file for use with systemd.
 --------------------------------------------------------------------------
 FINISH
 }
