@@ -43,7 +43,7 @@ module Netblog
 
   # Builds a date string
   #
-  def self.date
+  def self.date_stamp
     time = {{ (env("SOURCE_DATE_EPOCH") || `date +%s`).to_i }}
     Time.unix(time).to_s("%Y-%m-%d")
   end
