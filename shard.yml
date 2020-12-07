@@ -1,5 +1,5 @@
 name: netblog
-version: 0.18.1
+version: 0.18.2
 description: |
   A simple browser interface to maintenance log, netlog.
 
@@ -22,7 +22,7 @@ dependencies:
     branch: master
   kemal:
     github: kemalcr/kemal
-    branch: master
+    #branch: master
   slang:
     github: jeromegn/slang
   kemal-flash:

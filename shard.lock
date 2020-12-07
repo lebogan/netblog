@@ -2,7 +2,7 @@ version: 2.0
 shards:
   ameba:
     git: https://github.com/veelenga/ameba.git
-    version: 0.13.1
+    version: 0.13.3
 
   db:
     git: https://github.com/crystal-lang/crystal-db.git
@@ -14,11 +14,11 @@ shards:
 
   granite:
     git: https://github.com/amberframework/granite.git
-    version: 0.21.1+git.commit.72309280bf3dd5f61c42d8af0be71b428a9c00d3
+    version: 0.21.1+git.commit.c1e28172bb7ff59490da21839d80bd0e7b5681df
 
   kemal:
     git: https://github.com/kemalcr/kemal.git
-    version: 0.26.1+git.commit.dfe7dca08f4c9a9456d6132af5f6b59fcd6865e4
+    version: 0.27.0
 
   kemal-flash:
     git: https://github.com/neovintage/kemal-flash.git
@@ -34,7 +34,11 @@ shards:
 
   micrate:
     git: https://github.com/amberframework/micrate.git
-    version: 0.8.0
+    version: 0.9.0
+
+  mysql:
+    git: https://github.com/crystal-lang/crystal-mysql.git
+    version: 0.11.2
 
   pg:
     git: https://github.com/will/crystal-pg.git
@@ -47,4 +51,8 @@ shards:
   slang:
     git: https://github.com/jeromegn/slang.git
     version: 1.7.1
+
+  sqlite3:
+    git: https://github.com/crystal-lang/crystal-sqlite3.git
+    version: 0.16.0
 
